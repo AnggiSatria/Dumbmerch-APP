@@ -1,5 +1,5 @@
 import Navbar from '../components/NavbarAdmin';
-import { Button } from 'react-bootstrap';
+import { Button } from '@mui/material';
 import All from '../Assets/All.module.css';
 import { useNavigate } from 'react-router-dom';
 import * as React from 'react';
@@ -7,8 +7,10 @@ import { styled } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Stack from '@mui/material/Stack';
 
 
 const EditProduct = () => {
@@ -16,6 +18,10 @@ const EditProduct = () => {
     const handleNavigate = () => {
         Navigate("/product")
     }
+
+    const Input = styled('input')({
+      display: 'none',
+    });
 
     const theme = () => {
         document.body.style.backgroundColor="white"
@@ -86,13 +92,18 @@ const EditProduct = () => {
 
         <div className="All" style={{height : '93vh', marginTop : '100px'}}>
             <div className="teks" style={{marginLeft : '30px'}}>
-                <h4 style={{color: 'white'}}>Edit Category</h4>
+                <h4 style={{color: 'white'}}>Edit Product</h4>
             </div>
 
             <div className="body" style={{marginTop : '30px'}}>
                 <form action="">
                     <div className="file" style={{width : '100%'}}>
-                        <input type="file" className={All.file} style={{color : 'white', width : "96%", marginLeft : '1%', marginRight : '1%'}}/>
+                        <label htmlFor="contained-button-file" style={{color : 'white', width : "96%", marginLeft : '1%', marginRight : '1%'}}>
+                            <Input accept="image/*" id="contained-button-file" multiple type="file" />
+                            <Button variant="contained" component="span" color='error' style={{color : "white"}}>
+                              Upload Image
+                            </Button>
+                        </label>
                     </div>
 
                     <div className="name" style={{width : '100%', marginTop : '20px'}}>
@@ -112,7 +123,7 @@ const EditProduct = () => {
                     </div>
 
                     <div className="button" style={{marginTop : '30px', width : "100%", marginLeft : '1%', marginRight : '1%'}}>
-                        <Button onClick={handleNavigate} variant="success" style={{width : '96%'}}>Save</Button>{' '}
+                        <Button onClick={handleNavigate} variant="contained" color='success' style={{width : '96%'}}>Save</Button>{' '}
                     </div>
                 </form>
             </div>

@@ -79,10 +79,10 @@ const TableListProduct = () => {
                   <td>69</td>
                   <td style={{display : 'flex'}}>
                     <div className="button1">
-                      <button onClick={handleNavigate} style={{width : '100px', height : '30px', backgroundColor : 'green', borderRadius : '7px', color : 'white'}}>Edit</button>
+                      <Button variant="success" onClick={handleNavigate} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
                     </div>
                     <div className="button2" style={{marginLeft : '10px'}}>
-                      <button onClick={handleShow} style={{width : '100px', height : '30px', backgroundColor : 'red', borderRadius : '7px', color : 'white'}}>Delete</button>
+                      <Button variant="danger" onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
                     </div>
                   </td>
                 </tr>
@@ -95,10 +95,10 @@ const TableListProduct = () => {
                   <td>69</td>
                   <td style={{display : 'flex'}}>
                     <div className="button1">
-                      <button onClick={handleNavigate} style={{width : '100px', height : '30px', backgroundColor : 'green', borderRadius : '7px', color : 'white'}}>Edit</button>
+                      <Button variant="success" onClick={handleNavigate} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
                     </div>
                     <div className="button2" style={{marginLeft : '10px'}}>
-                      <button onClick={handleShow} style={{width : '100px', height : '30px', backgroundColor : 'red', borderRadius : '7px', color : 'white'}}>Delete</button>
+                      <Button variant="danger" onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
                     </div>
                   </td>
                 </tr>
@@ -111,10 +111,10 @@ const TableListProduct = () => {
                   <td>69</td>
                   <td style={{display : 'flex'}}>
                     <div className="button1">
-                      <button onClick={handleNavigate} style={{width : '100px', height : '30px', backgroundColor : 'green', borderRadius : '7px', color : 'white'}}>Edit</button>
+                      <Button variant="success" onClick={handleNavigate} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
                     </div>
                     <div className="button2" style={{marginLeft : '10px'}}>
-                      <button onClick={handleShow} style={{width : '100px', height : '30px', backgroundColor : 'red', borderRadius : '7px', color : 'white'}}>Delete</button>
+                      <Button variant='danger' onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
                     </div>
                   </td>
                 </tr>
@@ -127,10 +127,10 @@ const TableListProduct = () => {
                   <td>69</td>
                   <td style={{display : 'flex'}}>
                     <div className="button1">
-                      <button onClick={handleNavigate} style={{width : '100px', height : '30px', backgroundColor : 'green', borderRadius : '7px', color : 'white'}}>Edit</button>
+                      <Button variant="success" onClick={handleNavigate} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
                     </div>
                     <div className="button2" style={{marginLeft : '10px'}}>
-                      <button onClick={handleShow} style={{width : '100px', height : '30px', backgroundColor : 'red', borderRadius : '7px', color : 'white'}}>Delete</button>
+                      <Button variant="danger" onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
                     </div>
                   </td>
                 </tr>
@@ -143,10 +143,10 @@ const TableListProduct = () => {
                   <td>69</td>
                   <td style={{display : 'flex'}}>
                     <div className="button1">
-                      <button onClick={handleNavigate} style={{width : '100px', height : '30px', backgroundColor : 'green', borderRadius : '7px', color : 'white'}}>Edit</button>
+                      <Button variant="success" onClick={handleNavigate} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
                     </div>
                     <div className="button2" style={{marginLeft : '10px'}}>
-                      <button onClick={handleShow} style={{width : '100px', height : '30px', backgroundColor : 'red', borderRadius : '7px', color : 'white'}}>Delete</button>
+                      <Button variant="danger" onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
                     </div>
                   </td>
                 </tr>
@@ -159,10 +159,10 @@ const TableListProduct = () => {
                   <td>69</td>
                   <td style={{display : 'flex'}}>
                     <div className="button1">
-                      <button onClick={handleNavigate} style={{width : '100px', height : '30px', backgroundColor : 'green', borderRadius : '7px', color : 'white'}}>Edit</button>
+                      <Button variant="success" onClick={handleNavigate} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
                     </div>
                     <div className="button2" style={{marginLeft : '10px'}}>
-                      <button onClick={handleShow} style={{width : '100px', height : '30px', backgroundColor : 'red', borderRadius : '7px', color : 'white'}}>Delete</button>
+                      <Button variant="danger" onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
                     </div>
                   </td>
                 </tr>

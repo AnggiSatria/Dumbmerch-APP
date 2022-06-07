@@ -78,7 +78,7 @@ const Product = () => {
         </FormGroup>
       </div>
 
-      <div className="table" style={{marginTop : '100px'}}>
+      <div className="table" style={{marginTop : '20px'}}>
         <TableListProduct/>
       </div>
     </div>

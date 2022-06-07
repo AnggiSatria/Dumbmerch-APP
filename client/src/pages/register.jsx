@@ -8,13 +8,26 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { useState } from "react";
 
 
 function Register(){
 
+    const [bg, setBg] = useState(false); 
+
+    const tema = () => setBg(true)
+
+    const tema2 = () => setBg(false)
+
     const theme = () => {
-        document.body.style.backgroundColor="white"
-        return theme
+        if(tema){
+          document.body.style.backgroundColor="white"
+        }else if(tema2){
+           document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)"
+        }else{
+          document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)"
+        }
+       return theme
       }
     
       document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)"

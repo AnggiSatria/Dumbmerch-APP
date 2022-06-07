@@ -10,10 +10,12 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+import Complain from "../pages/complainUser";
+import ComplainAdmin from "../pages/complainAdmin"
 
 export default function Left() {
     return (
-      <List sx={{ width: '100%', maxWidth: 360}}>
+      <List sx={{ width: '100%', maxWidth: 360}} onClick={Complain}>
         <ListItem alignItems="flex-start">
           <ListItemAvatar>
             <Avatar alt="Remy Sharp" src="/broken-image.jpg"/>

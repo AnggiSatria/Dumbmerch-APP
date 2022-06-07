@@ -7,16 +7,25 @@ import { styled } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { useState } from 'react';
+
+
 
 const Complain = () => {
 
+    const [bg, setBg] = useState(false) 
+
+
     const theme = () => {
-        document.body.style.backgroundColor="white"
-      }
+
+         document.body.style.backgroundColor="white"
+        }
+          
       document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)"
-    
+       
+        
+
       const MaterialUISwitch = styled(Switch)(({ theme }) => ({
         width: 62,
         height: 34,
