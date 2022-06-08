@@ -9,8 +9,15 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router';
 
 const DetailPage = () => {
+
+  const navigate = useNavigate();
+  
+  const handleNavigate = () => {
+    navigate("/profile")
+  }
 
   const theme = () => {
     document.body.style.backgroundColor="white"
@@ -65,6 +72,7 @@ const DetailPage = () => {
   }));
   
   return (
+
     <div>
         <div className="Navbar" style={{height : '15vh'}}>
             <Navbar />
@@ -106,7 +114,7 @@ const DetailPage = () => {
                 <h2>Rp.300.000,-</h2>
               </div>
 
-              <Button variant='danger' style={{width : '100%', height : '40px', backgroundColor : 'red', color : 'white'}}>Buy</Button>
+              <Button onClick={handleNavigate} variant='danger' style={{width : '100%', height : '40px', backgroundColor : 'red', color : 'white'}}>Buy</Button>
           </div>
         </div>
     </div>

@@ -7,6 +7,10 @@
     background-color: black;
 }
 
-body {
-    background-color: white;
+#light {
+    background-color: #fff;
+}
+
+#dark {
+    background-color: rgba(0, 0, 0, 0.97);
 }

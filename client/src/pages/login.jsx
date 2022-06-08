@@ -7,9 +7,17 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-
+import { useState, useEffect } from "react";
+import Css from "../../src/Assets/All.module.css"
 
 function Login(){
+
+      const [themes, setThemes] = useState("dark");
+
+      const theme = () => {
+        
+      }
+      document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)"
     
       const MaterialUISwitch = styled(Switch)(({ theme }) => ({
         width: 62,
@@ -58,8 +66,11 @@ function Login(){
         },
       }));
 
+      
+
     return(
-        <div>
+      
+        <div id="light">
                 <div className="switch" style={{width : "100%", display : "flex"}}>
                     <FormGroup style={{margin : "auto"}}>
                     <FormControlLabel
@@ -83,11 +94,7 @@ function Login(){
     );
 }
 
-const theme = () => {
-  document.body.style.backgroundColor="white"
-  document.body.style.color="black"
-}
-document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)"
+
 
 
 export default Login;
