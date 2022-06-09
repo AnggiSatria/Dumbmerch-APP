@@ -13,6 +13,7 @@ import EditProduct from "./pages/EditProduct";
 import ComplainAdmin from "./pages/complainAdmin";
 import PrivateRoute from "./components/PrivateRouteAdmin";
 import User from "./components/PrivateRouteUser"
+import InputAdornments from "./components/input";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<Login />}/>
         <Route path="/register" element={<Register />}/> 
         <Route path="*" element={<Error />}/>
+        <Route path="/input" element={<InputAdornments/>}/>
 
      {/* only for user */}
 

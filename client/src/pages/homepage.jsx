@@ -16,15 +16,15 @@ function Homepage(){
     
     return (
         <div>
-            <div className="Navbar" style={{height : '15vh'}}>
+            <div className="Navbar" style={{height : '7vh'}}>
                 <Navbar />
             </div>
 
-            <div className="switch" style={{margin : "auto", display : "flex", justifyContent : "center"}}>
+            <div className="switch" style={{display : "flex", justifyContent : "center"}}>
                <DarkMode />
             </div>
 
-            <div className="Cards" style={{marginTop : '50px', height : '85vh'}}>
+            <div className="Cards" style={{marginTop : '50px', minHeight : "93vh"}}>
                 <Cards />
             </div>
         </div>

@@ -1,9 +1,10 @@
 import React from 'react'
+import  Card  from 'card';
 
-const Cards = () => {
+const Cards = (props) => {
   return (
     <div>
-
+      <Card/>
     </div>
   )
 }
