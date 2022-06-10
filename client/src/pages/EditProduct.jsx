@@ -15,7 +15,7 @@ import DarkMode from '../components/DarkMode';
 
 
 const EditProduct = () => {
-    const Navigate = useNavigate;
+    const Navigate = useNavigate();
     const handleNavigate = () => {
         Navigate("/product")
     }
@@ -47,7 +47,7 @@ const EditProduct = () => {
                     <div className="file" style={{width : '100%'}}>
                         <label htmlFor="contained-button-file" style={{color : 'white', width : "96%", marginLeft : '1%', marginRight : '1%'}}>
                             <Input accept="image/*" id="contained-button-file" multiple type="file" />
-                            <Button variant="contained" component="span" color='error' style={{color : "white"}}>
+                            <Button onClick={handleNavigate} variant="contained" component="span" color='error' style={{color : "white"}}>
                               Upload Image
                             </Button>
                         </label>

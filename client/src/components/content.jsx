@@ -1,7 +1,17 @@
+import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import IMG from "../Assets/Dumbmerch.png";
+import { useNavigate } from "react-router";
 
 function Content (){
+
+    const navigate = useNavigate();
+
+    const handleNavigate = () => {
+        navigate("/")
+    }
+
+
     return (
         <div>
             <div className="All">
@@ -18,11 +28,11 @@ function Content (){
                 </div>
 
                 <div className="button" style={{display : 'flex'}}>
-                    <div className="login" style={{width : '100px', height : '30px', backgroundColor : 'red', borderRadius : '5px', textAlign : 'center'}}>
-                        <Link to="/" style={{textDecoration : 'none', color : 'white'}}>Login</Link>
+                    <div className="login" style={{ textAlign : 'center'}}>
+                        <Button variant="danger" onClick={handleNavigate} style={{borderRadius : '5px',width : '100px',textDecoration : 'none', color : 'white'}}>Login</Button>
                     </div>
 
-                    <div className="register" style={{wwidth : '100px', height : '30px', textAlign : 'center', marginLeft : '20px'}}>
+                    <div className="register" style={{wwidth : '100px', height : '30px', textAlign : 'center', marginLeft : '20px', marginTop : "5px"}}>
                         <Link to="/register" style={{textDecoration : 'none', color : 'white'}}>Register</Link>
                     </div>
                 </div>

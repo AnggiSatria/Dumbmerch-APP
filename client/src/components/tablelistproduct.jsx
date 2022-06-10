@@ -2,7 +2,7 @@ import React from 'react'
 import Table from 'react-bootstrap/esm/Table';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Card, Modal } from 'react-bootstrap';
 
 const TableListProduct = () => {
 
@@ -16,6 +16,48 @@ const TableListProduct = () => {
   const handleNavigate = () => {
     Navigate("/edit-product")
   }
+
+  const list = [
+    {
+      no : 1,
+      photo : URL(""),
+      productName : "Mouse",
+      productDesc : "Mouses",
+      price : "Rp.500.000",
+      qty : 40,
+    },
+    {
+      no : 2,
+      photo : "Keyboard.jpg",
+      productName : "Keyboard",
+      productDesc : "Logitech",
+      price : "Rp.300.000",
+      qty : 50,
+    },
+    {
+      no : 3,
+      photo : "Doll.jpg",
+      productName : "Doll",
+      productDesc : "Aksesoris",
+      price : "Rp.100.000",
+      qty : 49,
+    },
+    {
+      no : 4,
+      photo : "Bag.jpg",
+      productName : "Bag",
+      productDesc : "Tas Laptop Anti Air",
+      price : "Rp.300.000",
+    },
+    {
+      no : 5,
+      photo : "",
+      productName : "Stationay",
+      productDesc : "",
+      price : "",
+      qty : "",
+    },
+  ]
 
   return (
     <div>
@@ -70,102 +112,24 @@ const TableListProduct = () => {
                 </tr>
               </thead>
               <tbody>
-              <tr>
-                  <td>1</td>
-                  <td><Link to="" style={{color : 'white'}}>Mouse.jpg</Link></td>
-                  <td>Mouse</td>
-                  <td>Lorem ipsum dolor sit amet.</td>
-                  <td>500.000</td>
-                  <td>69</td>
-                  <td style={{display : 'flex'}}>
-                    <div className="button1">
-                      <Button variant="success" onClick={handleNavigate} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
-                    </div>
-                    <div className="button2" style={{marginLeft : '10px'}}>
-                      <Button variant="danger" onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td><Link to="" style={{color : 'white'}}>Keyboard.jpg</Link></td>
-                  <td>Keyboard</td>
-                  <td>Lorem ipsum dolor sit amet.</td>
-                  <td>500.000</td>
-                  <td>69</td>
-                  <td style={{display : 'flex'}}>
-                    <div className="button1">
-                      <Button variant="success" onClick={handleNavigate} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
-                    </div>
-                    <div className="button2" style={{marginLeft : '10px'}}>
-                      <Button variant="danger" onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td><Link to="" style={{color : 'white'}}>Bag.jpg</Link></td>
-                  <td>Bag</td>
-                  <td>Lorem ipsum dolor sit amet.</td>
-                  <td>500.000</td>
-                  <td>69</td>
-                  <td style={{display : 'flex'}}>
-                    <div className="button1">
-                      <Button variant="success" onClick={handleNavigate} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
-                    </div>
-                    <div className="button2" style={{marginLeft : '10px'}}>
-                      <Button variant='danger' onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td><Link to="" style={{color : 'white'}}>Stationary.jpg</Link></td>
-                  <td>Stationar</td>
-                  <td>Lorem ipsum dolor sit amet.</td>
-                  <td>500.000</td>
-                  <td>69</td>
-                  <td style={{display : 'flex'}}>
-                    <div className="button1">
-                      <Button variant="success" onClick={handleNavigate} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
-                    </div>
-                    <div className="button2" style={{marginLeft : '10px'}}>
-                      <Button variant="danger" onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>5</td>
-                  <td><Link to="" style={{color : 'white'}}>Doll.jpg</Link></td>
-                  <td>Doll</td>
-                  <td>Lorem ipsum dolor sit amet.</td>
-                  <td>500.000</td>
-                  <td>69</td>
-                  <td style={{display : 'flex'}}>
-                    <div className="button1">
-                      <Button variant="success" onClick={handleNavigate} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
-                    </div>
-                    <div className="button2" style={{marginLeft : '10px'}}>
-                      <Button variant="danger" onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>6</td>
-                  <td><Link to="" style={{color : 'white'}}>Pillow.jpg</Link></td>
-                  <td>Pillow</td>
-                  <td>Lorem ipsum dolor sit amet.</td>
-                  <td>500.000</td>
-                  <td>69</td>
-                  <td style={{display : 'flex'}}>
-                    <div className="button1">
-                      <Button variant="success" onClick={handleNavigate} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
-                    </div>
-                    <div className="button2" style={{marginLeft : '10px'}}>
-                      <Button variant="danger" onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
-                    </div>
-                  </td>
-                </tr>
+              {list.map((value) => {
+                return <tr>
+                <td>{value.no}</td>
+                <td><Link to="" style={{color : 'white'}}>{value.photo}</Link></td>
+                <td>{value.productName}</td>
+                <td>{value.productDesc}</td>
+                <td>{value.price}</td>
+                <td>{value.qty}</td>
+                <td style={{display : 'flex'}}>
+                  <div className="button1">
+                    <Button variant="success" onClick={handleNavigate} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
+                  </div>
+                  <div className="button2" style={{marginLeft : '10px'}}>
+                    <Button variant="danger" onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
+                  </div>
+                </td>
+            </tr>
+              })}
               </tbody>
             </Table>
         </div>

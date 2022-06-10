@@ -20,7 +20,7 @@ const DarkMode = () => {
 
     const [themes, setThemes] = useState(dark);
     
-    const handleThemes = () => {!themes ? setThemes(light) : setThemes(dark)} 
+    const handleThemes = () => !themes ? setThemes(light) : setThemes(dark) 
 
     const MaterialUISwitch = styled(Switch)(({ theme }) => ({
         width: 62,

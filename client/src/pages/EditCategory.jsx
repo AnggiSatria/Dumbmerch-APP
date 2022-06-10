@@ -15,8 +15,9 @@ import DarkMode from '../components/DarkMode';
 const EditCategory = () => {
 
     const [category, setCategory] = useState({
-      categoryName : setCategory()
     })
+
+    
 
     const Navigate = useNavigate();
     const handleNavigate = () => {

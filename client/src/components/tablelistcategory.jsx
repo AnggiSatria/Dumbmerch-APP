@@ -20,6 +20,17 @@ const TableListCategory = () => {
     navigate("/edit-category");
   }
 
+  const data = [
+    {
+      no : 1,
+      categoryName : "Mouse",
+    },
+    {
+      no : 2,
+      categoryName : "Keyboard"
+    }
+  ]
+
   return (
     <div>
 
@@ -70,9 +81,10 @@ const TableListCategory = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
+                {data.map((value)=> {
+                  return <tr>
+                  <td>{value.no}</td>
+                  <td>{value.categoryName}</td>
                   <td style={{display : 'flex'}}>
                     <div className="button1">
                       <Button variant='success' onClick={route} style={{borderRadius : '7px', color : 'white', textAlign : "center", width : "100px"}}>Edit</Button>
@@ -82,66 +94,7 @@ const TableListCategory = () => {
                     </div>
                   </td>
                 </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td style={{display : 'flex'}}>
-                    <div className="button1">
-                      <Button variant='success' onClick={route} style={{borderRadius : '7px', color : 'white', width: "100px"}}>Edit</Button>
-                    </div>
-                    <div className="button2" style={{marginLeft : '10px'}}>
-                      <Button variant='danger' onClick={handleShow} style={{borderRadius : '7px', color : 'white', width : "100px"}}>Delete</Button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>1</td>
-                  <td style={{display : 'flex'}}>
-                    <div className="button1">
-                      <Button variant='success' onClick={route} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
-                    </div>
-                    <div className="button2" style={{marginLeft : '10px'}}>
-                      <Button variant='danger' onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Jacob</td>
-                  <td style={{display : 'flex'}}>
-                    <div className="button1">
-                      <Button variant='success' onClick={route} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
-                    </div>
-                    <div className="button2" style={{marginLeft : '10px'}}>
-                      <Button variant='danger' onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>5</td>
-                  <td>Jacob</td>
-                  <td style={{display : 'flex'}}>
-                    <div className="button1">
-                      <Button variant='success' onClick={route} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
-                    </div>
-                    <div className="button2" style={{marginLeft : '10px'}}>
-                      <Button variant='danger' onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>6</td>
-                  <td>Jacob</td>
-                  <td style={{display : 'flex'}}>
-                    <div className="button1">
-                      <Button variant='success' onClick={route} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
-                    </div>
-                    <div className="button2" style={{marginLeft : '10px'}}>
-                      <Button variant='danger' onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
-                    </div>
-                  </td>
-                </tr>
+                })}
               </tbody>
             </Table>
           </div>
