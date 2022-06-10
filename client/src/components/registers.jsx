@@ -194,7 +194,7 @@ function Registers(){
                     </div>
 
                 
-                        <Button onClick={handleAlert} variant="danger" style={{borderRadius : '5px',backgroundColor : 'red', marginTop : '15px', marginBottom : '30px',width : '90%',textDecoration : 'none', color : 'white', textAlign : 'center'}}>Register</Button>
+                        <Button onClick={handleAlert} variant="danger" style={{borderRadius : '5px', marginTop : '15px', marginBottom : '30px',width : '90%',textDecoration : 'none', color : 'white', textAlign : 'center'}}>Register</Button>
                 </div>
                 
             </div>
