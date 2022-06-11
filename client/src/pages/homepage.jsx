@@ -9,6 +9,7 @@ import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import DarkMode from '../components/DarkMode';
+import { Link } from "react-router-dom";
 
 function Homepage(){
 
@@ -25,7 +26,7 @@ function Homepage(){
             </div>
 
             <div className="Cards" style={{marginTop : '50px', minHeight : "93vh"}}>
-                <Cards />
+                    <Cards />      
             </div>
         </div>
     );

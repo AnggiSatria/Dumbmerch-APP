@@ -20,7 +20,7 @@ const TableListProduct = () => {
   const list = [
     {
       no : 1,
-      photo : URL(""),
+      photo : "",
       productName : "Mouse",
       productDesc : "Mouses",
       price : "Rp.500.000",

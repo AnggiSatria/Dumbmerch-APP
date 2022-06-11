@@ -15,8 +15,21 @@ import DarkMode from '../components/DarkMode';
 const EditCategory = () => {
 
     const [category, setCategory] = useState({
+        categories : "", 
     })
 
+    const handleOnChange = (e) => {
+        setCategory({
+            ...category,
+            [e.target.name] : e.target.value
+        })
+    }
+
+    const handleOnSubmit = (e) => {
+        e.preventDefault()
+        console.log(category)
+        handleNavigate()
+    }
     
 
     const Navigate = useNavigate();
@@ -43,13 +56,13 @@ const EditCategory = () => {
                 <h4 style={{color : 'white', marginLeft : '30px'}}>Edit Category</h4>
             </div>
 
-            <form action="" style={{marginTop : '30px', display : 'flex', flexDirection: 'column'}}>
+            <form action="" style={{marginTop : '30px', display : 'flex', flexDirection: 'column'}} onSubmit={handleOnSubmit}>
                 <div className="input" style={{marginLeft : '2%', marginRight : '2%', width : '100%'}}>
-                    <input type="text" placeholder='Insert Category' style={{width : '96%', height : '40px'}}/>
+                    <input type="text" name='categories' value={category.name} onChange={handleOnChange} placeholder='Insert Category' style={{width : '96%', height : '40px'}}/>
                 </div>
 
                 <div className="button" style={{marginTop : '30px', width : "100%", marginLeft : '2%', marginRight : '2%'}}>
-                    <Button onClick={handleNavigate} type='submit' variant="success" style={{width : '96%'}}>Save</Button>{' '}
+                    <Button  type='submit' variant="success" style={{width : '96%'}}>Save</Button>{' '}
                 </div>
             </form>
         </div>

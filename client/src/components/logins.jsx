@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import * as React from 'react';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
@@ -118,6 +118,23 @@ const blue = {
 
 function Logins(){
 
+  const [login, setLogin] = useState({
+    email : "",
+    password : "",
+  })
+
+  const handleOnChange = (e) => {
+    setLogin({
+      ...login,
+      [e.target.name] : e.target.value
+    })
+  }
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault()
+    console.log(login);
+  }
+
     const [values, setValues] = React.useState({
         amount: '',
         password: '',
@@ -127,7 +144,8 @@ function Logins(){
       });
     
       const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
+        setValues({ ...values, [prop]: event.target.value })
+        handleOnChange()
       };
     
       const handleClickShowPassword = () => {
@@ -150,7 +168,7 @@ function Logins(){
     const [show, setShow] = React.useState(false);
 
     const handleAlert = () => setShow(true);
-    
+
 
     return (
         <div>
@@ -166,15 +184,16 @@ function Logins(){
                 </div>
 
                 <div className="page" style={{marginLeft : '30px'}}>
-                    
+                  <form action="" onSubmit={handleOnSubmit}>
                     <div className="Email">
-                        <input type="email" placeholder="Email" style={{width: '90%', height : '45px', borderRadius : '5px', border : 'none'}}/>
+                        <input name="email" value={login.email} type="email" placeholder="Email" style={{width: '90%', height : '45px', borderRadius : '5px', border : 'none'}} onChange={handleOnChange}/>
                     </div>
 
                     <div className="password" style={{marginTop : '15px', width : "100%"}}>
                         <Box sx={{ display: 'flex', '& > * + *': { ml: 1 } }}>
                             <CustomInput
                                 id="outlined-adornment-password"
+                                name="password"
                                 placeholder="Password"
                                 type={values.showPassword ? 'text' : 'password'}
                                 value={values.password}
@@ -197,11 +216,9 @@ function Logins(){
                     </div>
 
                     <div className="button" style={{marginTop : '15px', marginBottom : '30px'}}>
-                        <Button variant="danger" onClick={() => {
-                            handleAlert()
-                            route()
-                        }} style={{height : '40px', width : '90%', textDecoration : 'none', color : 'white', textAlign : 'center', borderRadius : '5px'}}>Login</Button>
+                        <Button onClick={route} type="submit" variant="danger" style={{height : '40px', width : '90%', textDecoration : 'none', color : 'white', textAlign : 'center', borderRadius : '5px'}}>Login</Button>
                     </div>
+                    </form>
                 </div>
                 
             </div>

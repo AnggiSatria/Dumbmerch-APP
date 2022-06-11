@@ -13,9 +13,7 @@ import DarkMode from '../components/DarkMode';
 const Product = () => {
 
   document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)"
-
   
-
   return (
     <div>
       <div className="Navbar">

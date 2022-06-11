@@ -144,6 +144,24 @@ function Registers(){
 
     const handleAlert = () => setShow(true);
 
+    const [register, setRegister] = useState({
+      fullname : "",
+      email : "",
+      password : ""
+    });
+
+    const handleOnChange = (e) => {
+      setRegister({
+        ...register, 
+        [e.target.name] : e.target.value
+      })
+    }
+
+    const handleOnSubmit = (e) => {
+      e.preventDefault()
+      console.log(register)
+    }
+
     return (
         <div>
             <div className="All" style={{display : 'flex', flexDirection : 'column', width : '350px', backgroundColor : 'rgba(34, 32, 33, 0.8)', borderRadius : '10px'}}>
@@ -158,45 +176,47 @@ function Registers(){
                     <h1 style={{fontSize : '30px', color : "white"}}>Register</h1>
                 </div>
 
-                <div className="page" style={{marginLeft : '30px'}}>
-                
-                    <div className="Name">
-                        <input type="text" placeholder="Name" style={{width: '90%', height : '40px', borderRadius : '5px', border : 'none'}}/>
-                    </div>
+                <form action="" onSubmit={handleOnSubmit}>
+                  <div className="page" style={{marginLeft : '30px'}}>
+                  
+                      <div className="Name">
+                          <input onChange={handleOnChange} name="fullname" value={register.fullname} type="text" placeholder="Name" style={{width: '90%', height : '40px', borderRadius : '5px', border : 'none'}}/>
+                      </div>
 
-                    <div className="Email" style={{marginTop : '15px'}}>
-                        <input type="email" placeholder="Email" style={{width: '90%', height : '40px', borderRadius : '5px', border : 'none'}}/>
-                    </div>
+                      <div className="Email" style={{marginTop : '15px'}}>
+                          <input onChange={handleOnChange} name="email" value={register.email} type="email" placeholder="Email" style={{width: '90%', height : '40px', borderRadius : '5px', border : 'none'}}/>
+                      </div>
 
-                    <div className="password" style={{marginTop : '15px', width : "100%"}}>
-                        <Box sx={{ display: 'flex', '& > * + *': { ml: 1 } }}>
-                            <CustomInput
-                                id="outlined-adornment-password"
-                                placeholder="Password"
-                                type={values.showPassword ? 'text' : 'password'}
-                                value={values.password}
-                                onChange={handleChange('password')}
-                                style={{width : "90%"}}
-                                endAdornment={
-                                <InputAdornment>
-                                    <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                    edge="end"
-                                    >
-                                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                </InputAdornment>
-                                }
-                            />
-                            </Box>
-                    </div>
+                      <div className="password" style={{marginTop : '15px', width : "100%"}}>
+                          <Box sx={{ display: 'flex', '& > * + *': { ml: 1 } }}>
+                              <CustomInput
+                                  id="outlined-adornment-password"
+                                  placeholder="Password"
+                                  name="password"
+                                  type={values.showPassword ? 'text' : 'password'}
+                                  value={values.password}
+                                  onChange={handleChange('password')}
+                                  style={{width : "90%"}}
+                                  endAdornment={
+                                  <InputAdornment>
+                                      <IconButton
+                                      aria-label="toggle password visibility"
+                                      onClick={handleClickShowPassword}
+                                      onMouseDown={handleMouseDownPassword}
+                                      edge="end"
+                                      >
+                                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                      </IconButton>
+                                  </InputAdornment>
+                                  }
+                              />
+                              </Box>
+                      </div>
 
-                
-                        <Button onClick={handleAlert} variant="danger" style={{borderRadius : '5px', marginTop : '15px', marginBottom : '30px',width : '90%',textDecoration : 'none', color : 'white', textAlign : 'center'}}>Register</Button>
-                </div>
-                
+                  
+                          <Button type="submit" onClick={handleAlert} variant="danger" style={{borderRadius : '5px', marginTop : '15px', marginBottom : '30px',width : '90%',textDecoration : 'none', color : 'white', textAlign : 'center'}}>Register</Button>
+                  </div>
+                </form>
             </div>
         </div>
     );

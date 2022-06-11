@@ -10,17 +10,19 @@ import "../Assets/style.css"
 const light = () => {
     document.body.style.backgroundColor="#fff"
     document.body.style.color="black"
+    return
 }
 
 const dark = () => {
     document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)"
+    return 
 }
 
 const DarkMode = () => {
 
     const [themes, setThemes] = useState(dark);
     
-    const handleThemes = () => !themes ? setThemes(light) : setThemes(dark) 
+    const handleThemes = () => {!themes ? setThemes(light) : setThemes(dark)} 
 
     const MaterialUISwitch = styled(Switch)(({ theme }) => ({
         width: 62,
