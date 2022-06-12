@@ -1,5 +1,5 @@
-import Registers from "../components/registers";
-import Content from "../components/content";
+import Registers from "../components/users/registers";
+import Content from "../components/users/content";
 import All from "../Assets/All.module.css";
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
@@ -9,7 +9,7 @@ import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useState } from "react";
-import DarkMode from '../components/DarkMode';
+import DarkMode from '../components/fitur/DarkMode';
 
 
 function Register(){

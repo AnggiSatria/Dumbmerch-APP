@@ -1,7 +1,7 @@
-import Navbar from '../components/navbar';
-import Contact from '../components/contact';
-import Left from '../components/left';
-import Right from '../components/right';
+import Navbar from '../components/navbar/navbar';
+import Contact from '../components/complain/contact';
+import Left from '../components/complain/left';
+import Right from '../components/complain/right';
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
@@ -9,8 +9,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-import Right2 from "../components/Right2"
-import DarkMode from '../components/DarkMode';
+import Right2 from "../components/complain/Right2"
+import DarkMode from '../components/fitur/DarkMode';
 
 
 

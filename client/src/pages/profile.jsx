@@ -1,6 +1,6 @@
-import Navbar from '../components/navbar';
-import MyProfile from '../components/my profile';
-import Transaction from '../components/transaction';
+import Navbar from '../components/navbar/navbar';
+import MyProfile from '../components/profile/my profile';
+import Transaction from '../components/transaction/transaction';
 import All from "../Assets/All.module.css";
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
@@ -9,7 +9,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import DarkMode from '../components/DarkMode';
+import DarkMode from '../components/fitur/DarkMode';
 
 const Profile = () => {
 

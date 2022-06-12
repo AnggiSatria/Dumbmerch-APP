@@ -1,7 +1,7 @@
 import React from 'react'
-import IMG from '../Assets/Dumbmerch Nav.png'
+import IMG from '../../Assets/Dumbmerch Nav.png'
 import { Link } from 'react-router-dom';
-import Font from "../Assets/Font.module.css";
+import Font from "../../Assets/Font.module.css";
 
 
 const NavbarAdmin = () => {

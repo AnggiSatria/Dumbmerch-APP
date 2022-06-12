@@ -1,7 +1,7 @@
-import NavbarAdmin from '../components/NavbarAdmin';
-import Contact from '../components/contact';
-import Left from '../components/left';
-import Right from '../components/right';
+import NavbarAdmin from '../components/navbar/NavbarAdmin';
+import Contact from '../components/complain/contact';
+import Left from '../components/complain/left';
+import Right from '../components/complain/right';
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
@@ -9,7 +9,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import DarkMode from '../components/DarkMode';
+import DarkMode from '../components/fitur/DarkMode';
 
 const ComplainAdmin = () => {
 

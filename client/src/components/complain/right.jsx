@@ -2,8 +2,8 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { deepOrange, deepPurple } from '@mui/material/colors';
-import leftImg from "../Assets/left.jpg"
-import rightImg from "../Assets/right.jpg";
+import leftImg from "../../Assets/left.jpg"
+import rightImg from "../../Assets/right.jpg";
 import { Box } from '@mui/material';
 
 const Right = () => {

@@ -11,8 +11,8 @@ import Error from "./pages/Error";
 import EditCategory from "./pages/EditCategory";
 import EditProduct from "./pages/EditProduct";
 import ComplainAdmin from "./pages/complainAdmin";
-import PrivateRoute from "./components/PrivateRouteAdmin";
-import User from "./components/PrivateRouteUser"
+import PrivateRoute from "./components/dummy/PrivateRouteAdmin"
+import User from "./components/dummy/PrivateRouteUser"
 import InputAdornments from "./components/input";
 
 

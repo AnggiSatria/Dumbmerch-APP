@@ -1,4 +1,4 @@
-import Navbar from '../components/NavbarAdmin';
+import Navbar from '../components/navbar/NavbarAdmin';
 import { Button } from '@mui/material';
 import All from '../Assets/All.module.css';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
-import DarkMode from '../components/DarkMode';
+import DarkMode from '../components/fitur/DarkMode';
 import { useState } from 'react';
 
 

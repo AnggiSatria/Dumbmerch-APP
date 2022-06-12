@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import IMG from "../Assets/Dumbmerch.png";
+import IMG from "../../Assets/Dumbmerch.png";
 import { useNavigate } from "react-router";
 
 function Content (){

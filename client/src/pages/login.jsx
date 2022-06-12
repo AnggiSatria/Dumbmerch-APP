@@ -1,5 +1,5 @@
-import Content from "../components/content";
-import Logins from "../components/logins";
+import Content from "../components/users/content";
+import Logins from "../components/users/logins";
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useState, useEffect } from "react";
 import  "../Assets/style.css"
-import DarkMode from "../components/DarkMode";
+import DarkMode from "../components/fitur/DarkMode";
 
 
 

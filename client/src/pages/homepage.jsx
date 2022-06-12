@@ -1,5 +1,5 @@
-import Navbar from "../components/navbar";
-import Cards from "../components/card";
+import Navbar from "../components/navbar/navbar";
+import Cards from "../components/homepage/card";
 import All from "../Assets/All.module.css";
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
@@ -8,7 +8,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import DarkMode from '../components/DarkMode';
+import DarkMode from '../components/fitur/DarkMode';
 import { Link } from "react-router-dom";
 
 function Homepage(){
@@ -25,9 +25,10 @@ function Homepage(){
                <DarkMode />
             </div>
 
-            <div className="Cards" style={{marginTop : '50px', minHeight : "93vh"}}>
-                    <Cards />      
+            <div className="Cards" style={{marginTop : '50px', minHeight : "93vh"}}>      
+                <Cards/>
             </div>
+
         </div>
     );
 }

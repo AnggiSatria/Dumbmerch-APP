@@ -1,4 +1,4 @@
-import Navbar from '../components/navbar';
+import Navbar from '../components/navbar/navbar';
 import All from '../Assets/All.module.css';
 import Mouse from "../Assets/mouses.jpg";
 import { Button } from 'react-bootstrap';
@@ -10,7 +10,7 @@ import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router';
-import DarkMode from '../components/DarkMode';
+import DarkMode from '../components/fitur/DarkMode';
 
 const DetailPage = () => {
 

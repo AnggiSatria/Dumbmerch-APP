@@ -1,4 +1,4 @@
-import NavbarAdmin from '../components/NavbarAdmin';
+import NavbarAdmin from '../components/navbar/NavbarAdmin';
 import All from '../Assets/All.module.css';
 import { Button } from 'react-bootstrap';
 import { useState } from 'react';
@@ -10,7 +10,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import DarkMode from '../components/DarkMode';
+import DarkMode from '../components/fitur/DarkMode';
 
 const EditCategory = () => {
 

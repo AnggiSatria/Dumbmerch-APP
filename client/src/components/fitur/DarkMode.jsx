@@ -5,7 +5,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import "../Assets/style.css"
 
 const light = () => {
     document.body.style.backgroundColor="#fff"

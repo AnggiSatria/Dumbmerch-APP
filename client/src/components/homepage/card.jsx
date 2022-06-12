@@ -1,6 +1,6 @@
 import React from 'react'
-import Mouse from "../Assets/mouses.jpg"
-import Keyboard from "../Assets/Keyboard.jpg"
+import Mouse from "../../Assets/mouses.jpg"
+import Keyboard from "../../Assets/Keyboard.jpg"
 import { useState } from "react"
 import { Link } from 'react-router-dom'
 
@@ -9,19 +9,19 @@ const Card = (props) => {
 
   const cards = [
     {
-      img : "",
+      img : Mouse,
       category : "mouse",
       price : "Rp.200.000",
       stock : 600
     },
     {
-      img : "",
+      img : Keyboard,
       category : "keyboard",
       price : "Rp.400.000",
       stock : 300
     },
     {
-      img : "",
+      img : `https://i1.wp.com/mecrochet.com/wp-content/uploads/quick-large-crochet-doll-patterns-to-choose-molly-doll-crochet-pattern-amigurumi-today.jpg?fit=700%2C1307`,
       category : "doll",
       price : "Rp.100.000",
       stock : 800

@@ -1,5 +1,5 @@
 import React from 'react'
-import IMG from "../Assets/Luffy.jpg";
+import IMG from "../../Assets/Luffy.jpg";
 
 const MyProfile = () => {
   return (
