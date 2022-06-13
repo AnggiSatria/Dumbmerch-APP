@@ -8,7 +8,7 @@ export const Users = [
             phone: '0895321589992',
             gender: 'Male',
             email: 'anggisatria122@gmail.com',
-            password: '12456',
+            password: '123456',
             address: 'Jakarta',
             image: IMG
         },
@@ -19,7 +19,7 @@ export const Users = [
             phone: '085773827391',
             gender: 'Female',
             email: 'sitizahramawar@gmail.com',
-            password: '12456',
+            password: '123456',
             address: 'Jakarta',
             image: IMG
         }

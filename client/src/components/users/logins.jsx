@@ -162,6 +162,10 @@ console.log(login);
         navigate("/homepage")
     }
 
+    const admin = () => {
+      navigate("/homepage-admin")
+    }
+
     const [ isLogin, setIsLogin ] = useState(false)
     const [show, setShow] = React.useState(false);
 
@@ -181,7 +185,11 @@ console.log(login);
              } else {
                 setIsLogin(true)
                  setShow(false)
-                 route()
+                 if(data.status === "Users"){
+                   route()
+                 }else if (data.status === "Admin"){
+                   admin()
+                 }
                  console.log('login berhasil');
              }
          } else {
@@ -189,7 +197,7 @@ console.log(login);
              console.log('email tidak terdaftar');
          }
         }
-        
+
     return (
         <div>
             <div className="All" style={{display : 'flex', flexDirection : 'column', width : '350px', backgroundColor : 'rgba(34, 32, 33, 0.8)', borderRadius : '10px'}}>

@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/esm/Table';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Button, Card, Modal } from 'react-bootstrap';
+import { Alert } from '@mui/material';
 
 const TableListProduct = () => {
 
@@ -58,6 +59,10 @@ const TableListProduct = () => {
       qty : "",
     },
   ]
+
+  const alert = () => {
+    alert("hallo")
+  }
 
   return (
     <div>

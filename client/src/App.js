@@ -14,6 +14,7 @@ import ComplainAdmin from "./pages/complainAdmin";
 import PrivateRoute from "./components/dummy/PrivateRouteAdmin"
 import User from "./components/dummy/PrivateRouteUser"
 import InputAdornments from "./components/input";
+import HomepageAdmin from "./pages/homepageAdmin";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
       {/* only for admin */}
 
         <Route path="/" element={<PrivateRoute/>}>
+          <Route path="/homepage-admin" element={<HomepageAdmin/>}/>
           <Route path="/category" element={<Category />}/>
           <Route path="/product" element={<Product />}/>
           <Route path="/edit-category" element={<EditCategory />}/>

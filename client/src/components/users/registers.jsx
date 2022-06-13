@@ -141,7 +141,7 @@ function Registers(){
         event.preventDefault();
       };
 
-    const [show, setShow] = React.useState(false);
+    const [show, setShow] = useState(false);
 
     const handleAlert = () => setShow(true);
 

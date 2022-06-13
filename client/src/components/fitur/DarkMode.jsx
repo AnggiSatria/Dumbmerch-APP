@@ -75,7 +75,7 @@ const DarkMode = () => {
     <div>
         <FormGroup>
                     <FormControlLabel
-                        control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked onChange={handleThemes}/>}
+                        control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked onClick={handleThemes}/>}
                         label="Light Mode / Dark Mode"
                         style={{color : "white"}}
                         
