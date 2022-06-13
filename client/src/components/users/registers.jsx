@@ -181,7 +181,7 @@ function Registers(){
                     show? <Stack sx={{ width: '90%', marginTop: "10px", marginLeft : "5%", marginRight: "%"}} spacing={2}>
                     <Alert severity="success">Data telah ditambahkan</Alert>
                 </Stack> : <Stack sx={{ width: '90%', marginTop: "10px", marginLeft : "5%", marginRight: "%"}} spacing={2}>
-                            <Alert severity="error">Harap Isi Dengan Benar</Alert>
+                            <Alert severity="error">Data Tidak Boleh Kosong</Alert>
                         </Stack>
                 }
                 
