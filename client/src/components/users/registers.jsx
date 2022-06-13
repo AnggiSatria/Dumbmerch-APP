@@ -11,6 +11,7 @@ import InputUnstyled, { inputUnstyledClasses } from '@mui/base/InputUnstyled';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { styled } from '@mui/system';
+import { Users } from "../dummy/Users";
 
 
 const blue = {
@@ -159,6 +160,16 @@ function Registers(){
 
     const handleOnSubmit = (e) => {
       e.preventDefault()
+
+      if(register.fullname === ""){
+        setShow(false)
+      }else if(register.email === ""){
+        setShow(false)
+      }else if(register.password === ""){
+        setShow(false)
+      }else{
+        setShow(true)
+      }
       console.log(register)
     }
 
@@ -169,7 +180,9 @@ function Registers(){
             {
                     show? <Stack sx={{ width: '90%', marginTop: "10px", marginLeft : "5%", marginRight: "%"}} spacing={2}>
                     <Alert severity="success">Data telah ditambahkan</Alert>
-                </Stack> : null
+                </Stack> : <Stack sx={{ width: '90%', marginTop: "10px", marginLeft : "5%", marginRight: "%"}} spacing={2}>
+                            <Alert severity="error">Harap Isi Dengan Benar</Alert>
+                        </Stack>
                 }
                 
                 <div className="Login" style={{marginTop : '10px', marginLeft : '30px'}}>
@@ -194,8 +207,8 @@ function Registers(){
                                   placeholder="Password"
                                   name="password"
                                   type={values.showPassword ? 'text' : 'password'}
-                                  value={values.password}
-                                  onChange={handleChange('password')}
+                                  value={register.password}
+                                  onChange={handleOnChange}
                                   style={{width : "90%"}}
                                   endAdornment={
                                   <InputAdornment>

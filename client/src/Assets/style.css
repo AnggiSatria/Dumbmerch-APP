@@ -1,7 +1,7 @@
 .light {
-    background-color: #fff;
+    background: #fff;
 }
 
 .dark {
-    background-color: rgba(0, 0, 0, 0.97);
+    background: rgba(0, 0, 0, 0.97);
 }

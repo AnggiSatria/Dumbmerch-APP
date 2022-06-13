@@ -13,6 +13,7 @@ import InputUnstyled, { inputUnstyledClasses } from '@mui/base/InputUnstyled';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { styled } from '@mui/system';
+import { Users } from "../dummy/Users"
 
 const blue = {
     100: '#DAECFF',
@@ -129,11 +130,7 @@ function Logins(){
       [e.target.name] : e.target.value
     })
   }
-
-  const handleOnSubmit = (e) => {
-    e.preventDefault()
-    console.log(login);
-  }
+console.log(login);
 
     const [values, setValues] = React.useState({
         amount: '',
@@ -165,18 +162,41 @@ function Logins(){
         navigate("/homepage")
     }
 
+    const [ isLogin, setIsLogin ] = useState(false)
     const [show, setShow] = React.useState(false);
 
-    const handleAlert = () => setShow(true);
+    const dataUser = Users
+    console.log(dataUser);
 
+    const handleOnSubmit = (e) => { //handlesubmit gunanya ketika submit dia membawa state yang ada di dalamnya
+        e.preventDefault() //biar tidak refesh ke halaman baru
 
+         const data = dataUser.find((user) => user.email === login.email ) 
+         console.log(data);
+
+         if (data) {
+             if (data.password !== login.password){
+                setShow(true)
+                console.log('password salah');
+             } else {
+                setIsLogin(true)
+                 setShow(false)
+                 route()
+                 console.log('login berhasil');
+             }
+         } else {
+             setShow(true)
+             console.log('email tidak terdaftar');
+         }
+        }
+        
     return (
         <div>
             <div className="All" style={{display : 'flex', flexDirection : 'column', width : '350px', backgroundColor : 'rgba(34, 32, 33, 0.8)', borderRadius : '10px'}}>
                 {
-                    show? <Stack sx={{ width: '90%', marginTop: "10px", marginLeft : "5%", marginRight: "%"}} spacing={2}>
+                    show && (<Stack sx={{ width: '90%', marginTop: "10px", marginLeft : "5%", marginRight: "%"}} spacing={2}>
                             <Alert severity="error">Data Tidak Ditemukan</Alert>
-                        </Stack> : null
+                        </Stack>)
                 }
 
                 <div className="Login" style={{marginTop : '10px', marginLeft : '30px'}}>
@@ -196,8 +216,8 @@ function Logins(){
                                 name="password"
                                 placeholder="Password"
                                 type={values.showPassword ? 'text' : 'password'}
-                                value={values.password}
-                                onChange={handleChange('password')}
+                                value={login.password}
+                                onChange={handleOnChange}
                                 style={{width : "90%"}}
                                 endAdornment={
                                 <InputAdornment>
@@ -216,7 +236,7 @@ function Logins(){
                     </div>
 
                     <div className="button" style={{marginTop : '15px', marginBottom : '30px'}}>
-                        <Button onClick={route} type="submit" variant="danger" style={{height : '40px', width : '90%', textDecoration : 'none', color : 'white', textAlign : 'center', borderRadius : '5px'}}>Login</Button>
+                        <Button type="submit" variant="danger" style={{height : '40px', width : '90%', textDecoration : 'none', color : 'white', textAlign : 'center', borderRadius : '5px'}}>Login</Button>
                     </div>
                     </form>
                 </div>

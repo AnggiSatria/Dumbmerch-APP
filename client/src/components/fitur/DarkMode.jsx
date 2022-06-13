@@ -5,6 +5,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { Button } from '@mui/material';
+import "../../Assets/style.css"
 
 const light = () => {
     document.body.style.backgroundColor="#fff"
@@ -13,13 +15,12 @@ const light = () => {
 }
 
 const dark = () => {
-    document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)"
-    return 
+    document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)" 
 }
 
 const DarkMode = () => {
 
-    const [themes, setThemes] = useState(dark);
+    const [themes, setThemes] = useState(false);
     
     const handleThemes = () => {!themes ? setThemes(light) : setThemes(dark)} 
 
@@ -74,12 +75,13 @@ const DarkMode = () => {
     <div>
         <FormGroup>
                     <FormControlLabel
-                        control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked onClick={handleThemes}/>}
+                        control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked onChange={handleThemes}/>}
                         label="Light Mode / Dark Mode"
                         style={{color : "white"}}
                         
                     />
                     </FormGroup>
+
     </div>
   )
 }
