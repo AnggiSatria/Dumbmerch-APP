@@ -10,8 +10,16 @@ import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import DarkMode from '../components/fitur/DarkMode';
+import Right2 from "../components/complain/Right2"
+import { useState } from "react"
 
 const ComplainAdmin = () => {
+
+        const [show, setShow] = useState(false);
+
+        const handleClick = () => {
+            setShow(!show)
+        }
 
       document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)"
     
@@ -27,12 +35,13 @@ const ComplainAdmin = () => {
 
         <div className="Page" style={{height : '85vh', display : 'flex', marginTop : '50px'}}>
             <div className="left" style={{flex : '25%', display : 'flex'}}>
-                <Left />
+                <Left handleClick={handleClick}/>
             </div>
             
             <div className="Zero" style={{height : '100%', border : '1px solid white', marginLeft : '10px', marginRight : '10px'}}></div>
 
-            <div className="right" style={{flex : '75%', display : 'flex', flexDirection : 'column'}}>
+            {
+                show ? <div className="right" style={{flex : '75%', display : 'flex', flexDirection : 'column'}}>
                 <div className="up" style={{display : 'flex', alignItems : 'flex-end', flex : '90%', marginBottom : "20px"}}>
                     <Right />
                 </div>
@@ -40,7 +49,12 @@ const ComplainAdmin = () => {
                 <div className="down" style={{flex : '10%', width : '100%', alignItems : 'flex-end'}}>
                     <Contact />
                 </div>
+            </div> : <div className="right2" style={{flex : '75%', display : 'flex', flexDirection : 'column'}}>
+                <Right2 />
             </div>
+            }
+
+            
         </div>
     </div>
   )

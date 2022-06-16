@@ -13,11 +13,7 @@ import Typography from '@mui/material/Typography';
 import Complain from "../../pages/complainUser";
 import ComplainAdmin from "../../pages/complainAdmin"
 
-export default function Left() {
-
-    const [show, setShow] = useState(false);
-
-    const handleClick = () => setShow(true)
+export default function Left(props) {
 
     const chat = [
       {
@@ -28,9 +24,9 @@ export default function Left() {
     ]
 
     return (
-      <List sx={{ width: '100%', maxWidth: 360}} onClick={Complain}>
+      <List sx={{ width: '100%', maxWidth: 360}}>
         {chat.map((value)=>{
-          return <ListItem alignItems="flex-start">
+          return <ListItem alignItems="flex-start" onClick={props.handleClick}>
           <ListItemAvatar>
             <Avatar alt="Remy Sharp" src="/broken-image.jpg"/>
           </ListItemAvatar>

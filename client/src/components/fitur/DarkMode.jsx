@@ -11,18 +11,26 @@ import "../../Assets/style.css"
 const light = () => {
     document.body.style.backgroundColor="#fff"
     document.body.style.color="black"
-    return
+    console.log("light")
 }
+
 
 const dark = () => {
     document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)" 
+    console.log("dark")
 }
 
 const DarkMode = () => {
 
     const [themes, setThemes] = useState(false);
     
-    const handleThemes = () => {!themes ? setThemes(light) : setThemes(dark)} 
+    const handleThemes = () => {
+      if(themes === light()){
+        setThemes(true)
+      }else{
+        setThemes(false)
+      }
+    } 
 
     const MaterialUISwitch = styled(Switch)(({ theme }) => ({
         width: 62,
