@@ -7,6 +7,13 @@ import rightImg from "../../Assets/right.jpg";
 import { Box } from '@mui/material';
 
 const Right = () => {
+
+  const chats = [
+    {
+      txt: 'hallo'
+    },
+  ]
+
   return (
     <div style={{width : "100%", display : "flex", marginRight : "1%", marginLeft : "1%"}}>
       <div className="left" style={{display : "flex", flex : "1", alignItems : 'flex-end'}}>
@@ -16,12 +23,13 @@ const Right = () => {
           </Stack>
         </div>
 
-        <div className="chactbox" style={{marginLeft : "20px", display : "flex"}}>
+        <div className="chatsbox" style={{marginLeft : "20px", display : "flex"}}>
           <img src={leftImg} alt="" style={{width : "15px"}}/>
           <Box
       sx={{
         width: 200,
         height: 40,
+        textAlign : "center",
         backgroundColor: 'rgba(152, 150, 150, 0.46)',
         borderRadius : '5px',
         '&:hover': {
@@ -29,16 +37,17 @@ const Right = () => {
           opacity: [0.9, 0.8, 0.7],
         },
       }}
-    />
+    ><label style={{color : "white"}}>Hallo</label></Box>
         </div>
       </div>
 
       <div className="right" style={{display : "flex", flex : "2", justifyContent : "flex-end", alignItems : "flex-end", marginBottom : "70px"}}>
-      <div className="chactbox2" style={{marginLeft : "20px", display : "flex"}}>
+      <div className="chatsbox2" style={{marginLeft : "20px", display : "flex"}}>
           <Box
       sx={{
         width: 200,
         height: 40,
+        textAlign: "center",
         backgroundColor: 'rgba(46, 40, 44, 0.77)',
         borderRadius : '5px',
         '&:hover': {
@@ -46,7 +55,7 @@ const Right = () => {
           opacity: [0.9, 0.8, 0.7],
         },
       }}
-    />
+    ><label htmlFor="" style={{color : 'white', textAlign: "center"}}>Hallo</label></Box>
      <img src={rightImg} alt="" style={{width : "15px"}}/>
         </div>
       </div>

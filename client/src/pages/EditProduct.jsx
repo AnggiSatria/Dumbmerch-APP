@@ -13,9 +13,27 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
 import DarkMode from '../components/fitur/DarkMode';
 import { useState } from 'react';
+import { UploadOutlined } from '@ant-design/icons';
+import { Upload } from 'antd';
 
 
 const EditProduct = () => {
+
+    const fileList = [
+        {
+          uid: '-1',
+          name: 'xxx.png',
+          status: 'done',
+          url: "",
+          thumbUrl: '',
+        },
+        {
+          uid: '-2',
+          name: 'yyy.png',
+          status: 'error',
+        },
+      ];
+      
     const Navigate = useNavigate();
     const handleNavigate = () => {
         Navigate("/product")
@@ -28,6 +46,7 @@ const EditProduct = () => {
       document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)"
 
     const [product, setProduct] = useState({
+        img : "",
         categoryName : "",
         desc : "",
         price : "",
@@ -66,13 +85,20 @@ const EditProduct = () => {
 
             <div className="body" style={{marginTop : '30px'}}>
                 <form action="" onSubmit={handleOnSubmit}>
-                    <div className="file" style={{width : '100%'}}>
-                        <label htmlFor="contained-button-file" style={{color : 'white', width : "96%", marginLeft : '1%', marginRight : '1%'}}>
-                            <Input accept="image/*" id="contained-button-file" multiple type="file" />
-                            <Button onClick={handleNavigate} variant="contained" component="span" color='error' style={{color : "white"}}>
-                              Upload Image
-                            </Button>
-                        </label>
+                    <div className="file" style={{width : '96%', display : "flex", marginLeft : "1%", marginRight : "1%"}}>
+                       
+                                    <br />
+                                    <br />
+                                    <Upload
+                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                    listType="picture"
+                                    
+                                    defaultFileList={[...fileList]}
+                                    className="upload-list-inline"
+                                    >
+                                    <Button  variant="contained" color="error" icon={<UploadOutlined />}>Upload</Button>
+                        </Upload>
+                                
                     </div>
 
                     <div className="name" style={{width : '100%', marginTop : '20px'}}>

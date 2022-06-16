@@ -165,8 +165,7 @@ console.log(login);
     const admin = () => {
       navigate("/homepage-admin")
     }
-
-    const [ isLogin, setIsLogin ] = useState(false)
+    
     const [show, setShow] = React.useState(false);
 
     const dataUser = Users
@@ -183,7 +182,6 @@ console.log(login);
                 setShow(true)
                 console.log('password salah');
              } else {
-                setIsLogin(true)
                  setShow(false)
                  if(data.status === "Users"){
                    route()

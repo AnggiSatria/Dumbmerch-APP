@@ -1,0 +1,41 @@
+export const product = [
+    {
+      no : 1,
+      photo : "",
+      productName : "Mouse",
+      productDesc : "Mouses",
+      price : "Rp.500.000",
+      qty : 40,
+    },
+    {
+      no : 2,
+      photo : "Keyboard.jpg",
+      productName : "Keyboard",
+      productDesc : "Logitech",
+      price : "Rp.300.000",
+      qty : 50,
+    },
+    {
+      no : 3,
+      photo : "Doll.jpg",
+      productName : "Doll",
+      productDesc : "Aksesoris",
+      price : "Rp.100.000",
+      qty : 49,
+    },
+    {
+      no : 4,
+      photo : "Bag.jpg",
+      productName : "Bag",
+      productDesc : "Tas Laptop Anti Air",
+      price : "Rp.300.000",
+    },
+    {
+      no : 5,
+      photo : "",
+      productName : "Stationay",
+      productDesc : "",
+      price : "",
+      qty : "",
+    },
+  ]

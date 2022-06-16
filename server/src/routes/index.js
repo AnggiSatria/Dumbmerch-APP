@@ -54,7 +54,7 @@ router.post("/login", login);
 
 router.get('/profile', getProfile);
 
-router.get('/products', getProducts);
+router.get('/products', auth, getProducts);
 router.get('/product/:id', getProduct);
 router.post('/product', addProduct);
 router.patch('/product/:id', updateProduct);
@@ -65,7 +65,7 @@ router.post('/transaction', addTransaction);
 
 router.post('/notification', notification);
 
-router.get('/categories', getCategories);
+router.get('/categories', auth, getCategories);
 router.get('/category/:id', getCategory);
 router.post('/category', addCategory);
 router.patch('/category/:id', updateCategory);

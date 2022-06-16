@@ -60,14 +60,10 @@ const TableListProduct = () => {
     },
   ]
 
-  const alert = () => {
-    alert("hallo")
-  }
 
   return (
     <div>
 
-<div className="modals">
     <Modal
         show={show}
         onHide={handleClose}
@@ -85,19 +81,19 @@ const TableListProduct = () => {
           
           <div className="button" style={{display : "flex", marginTop : "30px", justifyContent : "flex-end"}}>
             <div className="btn1">
-              <Button variant="success" onClick={handleClose}>
+              <Button variant="success">
                 Yes
               </Button>
             </div>
             
             <div className="btn2" style={{marginLeft : '10px'}}>
-              <Button variant="danger">No</Button>
+              <Button variant="danger" onClick={handleClose}>No</Button>
             </div>
             
           </div>
         </Modal.Body>
       </Modal>
-    </div>
+    
 
         <div className="tittle">
           <h4 style={{color : 'white'}}>List Product</h4>

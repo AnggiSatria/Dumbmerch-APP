@@ -14,14 +14,28 @@ import Complain from "../../pages/complainUser";
 import ComplainAdmin from "../../pages/complainAdmin"
 
 export default function Left() {
+
+    const [show, setShow] = useState(false);
+
+    const handleClick = () => setShow(true)
+
+    const chat = [
+      {
+        img: "",
+        chats: "Hallo",
+        users: "Anggi",
+      },
+    ]
+
     return (
       <List sx={{ width: '100%', maxWidth: 360}} onClick={Complain}>
-        <ListItem alignItems="flex-start">
+        {chat.map((value)=>{
+          return <ListItem alignItems="flex-start">
           <ListItemAvatar>
             <Avatar alt="Remy Sharp" src="/broken-image.jpg"/>
           </ListItemAvatar>
           <ListItemText style={{color : "white"}}
-            primary="Brunch this weekend?"
+            primary={value.chats}
             secondary={
               <React.Fragment>
                 <Typography
@@ -30,56 +44,14 @@ export default function Left() {
                   variant="body2"
                   color="text.primary"
                 >
-                  Ali Connors
+                  <b style={{color : "grey"}}>{value.users}</b>
                 </Typography>
                 
               </React.Fragment>
             }
           />
         </ListItem>
-        <Divider variant="inset" component="li" />
-        <ListItem alignItems="flex-start">
-          <ListItemAvatar>
-            <Avatar alt="Travis Howard" src="/broken-image.jpg" />
-          </ListItemAvatar>
-          <ListItemText style={{color : "white"}}
-            primary="Summer BBQ"
-            secondary={
-              <React.Fragment>
-                <Typography
-                  sx={{ display: 'inline', color : "white" }}
-                  component="span"
-                  variant="body2"
-                  color="text.primary"
-                >
-                  to Scott, Alex, Jennifer
-                </Typography>
-               
-              </React.Fragment>
-            }
-          />
-        </ListItem>
-        <Divider variant="inset" component="li" />
-        <ListItem alignItems="flex-start">
-          <ListItemAvatar>
-            <Avatar alt="Cindy Baker" src="/broken-image.jpg" />
-          </ListItemAvatar>
-          <ListItemText style={{color : "white"}}
-            primary="Oui Oui"
-            secondary={
-              <React.Fragment>
-                <Typography
-                  sx={{ display: 'inline', color : "white" }}
-                  component="span"
-                  variant="body2"
-                  color="text.primary"
-                >
-                  Sandra Adams
-                </Typography>
-              </React.Fragment>
-            }
-          />
-        </ListItem>
+        })}
       </List>
     );
   }
