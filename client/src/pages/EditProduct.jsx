@@ -15,24 +15,10 @@ import DarkMode from '../components/fitur/DarkMode';
 import { useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import { Upload } from 'antd';
+import { Form } from 'react-bootstrap';
 
 
 const EditProduct = () => {
-
-    const fileList = [
-        {
-          uid: '-1',
-          name: 'xxx.png',
-          status: 'done',
-          url: "",
-          thumbUrl: '',
-        },
-        {
-          uid: '-2',
-          name: 'yyy.png',
-          status: 'error',
-        },
-      ];
       
     const Navigate = useNavigate();
     const handleNavigate = () => {
@@ -87,17 +73,7 @@ const EditProduct = () => {
                 <form action="" onSubmit={handleOnSubmit}>
                     <div className="file" style={{width : '96%', display : "flex", marginLeft : "1%", marginRight : "1%"}}>
                        
-                                    <br />
-                                    <br />
-                                    <Upload
-                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                    listType="picture"
-                                    
-                                    defaultFileList={[...fileList]}
-                                    className="upload-list-inline"
-                                    >
-                                    <Button  variant="contained" color="error" icon={<UploadOutlined />}>Upload</Button>
-                        </Upload>
+                        <input name='img' value={product.img} onChange={handleOnChange} type='file'></input>
                                 
                     </div>
 

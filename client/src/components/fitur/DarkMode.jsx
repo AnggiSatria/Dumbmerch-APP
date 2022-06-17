@@ -24,13 +24,17 @@ const DarkMode = () => {
 
     const [themes, setThemes] = useState(false);
     
-    const handleThemes = () => {
-      if(themes === light()){
-        setThemes(true)
-      }else{
-        setThemes(false)
-      }
-    } 
+    const handleThemes = () => {!themes ? setThemes(true) : setThemes(false)}
+
+    
+
+    if(!themes === true){
+      dark()
+    }else{
+      light()
+    }
+
+    console.log(themes)
 
     const MaterialUISwitch = styled(Switch)(({ theme }) => ({
         width: 62,
@@ -78,7 +82,7 @@ const DarkMode = () => {
           borderRadius: 20 / 2,
         },
       }));
-
+ 
   return (
     <div>
         <FormGroup>
