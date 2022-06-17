@@ -16,6 +16,7 @@ import { useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import { Upload } from 'antd';
 import { Form } from 'react-bootstrap';
+import "../Assets/style.css"
 
 
 const EditProduct = () => {
@@ -73,7 +74,7 @@ const EditProduct = () => {
                 <form action="" onSubmit={handleOnSubmit}>
                     <div className="file" style={{width : '96%', display : "flex", marginLeft : "1%", marginRight : "1%"}}>
                        
-                        <input name='img' value={product.img} onChange={handleOnChange} type='file'></input>
+                        <input name='img' value={product.img} onChange={handleOnChange} type='file' style={{}} ></input>
                                 
                     </div>
 

@@ -8,16 +8,14 @@ import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import "../../Assets/style.css"
 
+
 const light = () => {
-    document.body.style.backgroundColor="#fff"
-    document.body.style.color="black"
-    console.log("light")
+    document.body.style.backgroundColor="rgba(78, 84, 199, 0.72)"
 }
 
 
 const dark = () => {
     document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)" 
-    console.log("dark")
 }
 
 const DarkMode = () => {
@@ -26,12 +24,10 @@ const DarkMode = () => {
     
     const handleThemes = () => {!themes ? setThemes(true) : setThemes(false)}
 
-    
-
     if(!themes === true){
       dark()
     }else{
-      light()
+      light ()
     }
 
     console.log(themes)
@@ -90,7 +86,7 @@ const DarkMode = () => {
                         control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked onClick={handleThemes}/>}
                         label="Light Mode / Dark Mode"
                         style={{color : "white"}}
-                        
+                        className="txt"
                     />
                     </FormGroup>
 
