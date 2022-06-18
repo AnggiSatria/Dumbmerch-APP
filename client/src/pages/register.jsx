@@ -10,6 +10,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useState } from "react";
 import DarkMode from '../components/fitur/DarkMode';
+import { Container, Row, Col } from "react-bootstrap";
 
 
 function Register(){
@@ -23,13 +24,25 @@ function Register(){
             </div>
 
            <div className="page" style={{display : 'flex'}}>
-                <div className="content" style={{flex : '50%', display : 'flex', marginLeft : '50px', alignItems : 'center', marginTop : '100px'}}>
-                    <Content />
-                </div>
+            
+            <Container>
+                <Row>
+                    <Col>
+                        <div className="content" style={{flex : '50%', display : 'flex', marginLeft : '50px', alignItems : 'center', marginTop : '100px'}}>
+                            <Content />
+                        </div>
+                    </Col>
 
-                <div className="login" style={{flex : '50%', display : 'flex', justifyContent : 'center', alignItems : 'center'}}>
-                    <Registers />
-                </div>
+                    <Col>
+                        <div className="login" style={{flex : '50%', display : 'flex', justifyContent : 'center', alignItems : 'center', marginTop : "100px"}}>
+                            <Registers />
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
+                
+
+                
             </div>  
         </div>
     )

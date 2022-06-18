@@ -10,6 +10,8 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import DarkMode from '../components/fitur/DarkMode';
 import { Link } from "react-router-dom";
+import Filter from "../components/fitur/filter";
+import { Container, Row, Col } from "react-bootstrap";
 
 function Homepage(){
 
@@ -17,9 +19,9 @@ function Homepage(){
     
     return (
         <div>
-            <div className="Navbar" style={{height : '7vh'}}>
+            <nav className="Navbar" style={{height : '7vh'}}>
                 <Navbar />
-            </div>
+            </nav>
 
             <div className="switch" style={{display : "flex", justifyContent : "center"}}>
                <DarkMode />

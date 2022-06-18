@@ -10,6 +10,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import DarkMode from '../components/fitur/DarkMode';
 import { Link } from "react-router-dom";
+import Filter from "../components/fitur/filter";
 
 
 function HomepageAdmin() {
@@ -24,6 +25,10 @@ function HomepageAdmin() {
 
             <div className="switch" style={{display : "flex", justifyContent : "center"}}>
                <DarkMode />
+            </div>
+
+            <div className="filter" style={{display : "flex", justifyContent : "center", marginTop : "30px"}}>
+              <Filter />
             </div>
 
             <div className="Cards" style={{marginTop : '50px', minHeight : "93vh"}}>      

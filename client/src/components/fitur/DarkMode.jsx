@@ -7,6 +7,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import "../../Assets/style.css"
+import Font from "../../Assets/Font.module.css";
 
 
 const light = () => {
@@ -85,8 +86,8 @@ const DarkMode = () => {
                     <FormControlLabel
                         control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked onClick={handleThemes}/>}
                         label="Light Mode / Dark Mode"
-                        style={{color : "white"}}
-                        className="txt"
+                        style={{color : "white", fontFamily : "arial bold"}}
+                        className={Font.font}
                     />
                     </FormGroup>
 

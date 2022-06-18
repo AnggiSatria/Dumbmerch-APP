@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import { useState, useEffect } from "react";
 import  "../Assets/style.css"
 import DarkMode from "../components/fitur/DarkMode";
+import { Container, Row, Col } from "react-bootstrap";
 
 
 
@@ -20,19 +21,32 @@ function Login(){
     return(
       
         <div>
+            
                 <div className="switch" style={{width : "100%", display : "flex", justifyContent : "center", marginTop : "20px"}}>
                     <DarkMode/>
                 </div>
 
-                <div className="page" style={{display : 'flex'}}>
-                    <div className="content" style={{flex : '50%', display : 'flex', marginLeft : '50px', alignItems : 'center', marginTop : '100px'}}>
-                        <Content />
-                    </div>
+                
+                    <div className="page" style={{display : 'flex'}}>
+                    <Container>
+                        <Row>
+                            <Col>
+                              <div className="content" style={{flex : '50%', display : 'flex', marginLeft : '50px', alignItems : 'center', marginTop : '100px'}}>
+                                    <Content />
+                                </div>
+                            </Col>
+                            <Col>
+                                <div className="login" style={{flex : '50%', display : 'flex', justifyContent : 'center', alignItems : 'center', marginTop : "150px"}}>
+                                    <Logins />
+                                </div>  
+                            </Col>
+                            
+                        </Row>
+                     </Container>   
+                    </div> 
+                
 
-                    <div className="login" style={{flex : '50%', display : 'flex', justifyContent : 'center', alignItems : 'center'}}>
-                        <Logins />
-                    </div>
-                </div>  
+                 
         </div>
     );
 }

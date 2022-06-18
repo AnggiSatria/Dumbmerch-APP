@@ -94,10 +94,16 @@ const TableListProduct = () => {
         </Modal.Body>
       </Modal>
     
+      
+      <div className="nonTable" style={{width : "100%", display : "flex", flexDirection : "column"}}>
+            <div className="tittle" style={{display : "flex", flex : "50%"}}>
+              <h4 style={{color : 'white'}}>List Product</h4>
+            </div>
 
-        <div className="tittle">
-          <h4 style={{color : 'white'}}>List Product</h4>
-        </div>
+            <div className="buttonAdd" style={{display : "flex", justifyContent : "flex-end", flex : "50%"}}>
+              <Button onClick={handleNavigate} variant='danger' style={{width: "100px", height : "40px"}}>Add</Button>
+            </div>
+          </div>
         
         <div className="table">
            <Table striped bordered hover variant="dark">
