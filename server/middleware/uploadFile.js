@@ -18,7 +18,7 @@ exports.uploadFile = (imageFile) => {
         if(file.filename === imageFile){
             if(!file.originalname.match(/\.(jpg|JPG|JPEG|jpeg|png|PNG|gif|GIF)$/)){
                 req.fileValidationError = {
-                    message : "ONLY IMAGE FILE ALLOWED"
+                    message : "ONLY IMAGE FILE ARE ALLOWED"
                 }
                 return cb(new Error("only image file allowed"))
             }
@@ -51,7 +51,7 @@ exports.uploadFile = (imageFile) => {
             }
 
             if(err){
-                if(err.code === "LIMIT FILE SIZE"){
+                if(err.code === "LIMIT_FILE_SIZE"){
                     return res.status(400).send({
                         message : "Max File Size 10 MB"
                     })

@@ -42,11 +42,11 @@ const ComplainAdmin = () => {
 
             {
                 show ? <div className="right" style={{flex : '75%', display : 'flex', flexDirection : 'column'}}>
-                <div className="up" style={{display : 'flex', alignItems : 'flex-end', flex : '90%', marginBottom : "20px"}}>
+                <div className="up" style={{display : 'flex', flex : '90%', marginBottom : "20px", height : '75%', overflow : "auto"}}>
                     <Right />
                 </div>
 
-                <div className="down" style={{flex : '10%', width : '100%', alignItems : 'flex-end'}}>
+                <div className="down" style={{flex : '10%', width : '100%', alignItems : 'flex-end', height : "25%"}}>
                     <Contact />
                 </div>
             </div> : <div className="right2" style={{flex : '75%', display : 'flex', flexDirection : 'column'}}>

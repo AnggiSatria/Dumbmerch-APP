@@ -40,7 +40,8 @@ const {
   login
 } = require("../controllers/auth")
 
-const { auth } = require("../../middleware/auth")
+const { auth } = require("../../middleware/auth");
+const { uploadFile } = require('../../middleware/uploadFile');
 
 // Route
 router.post('/user', addUsers);
@@ -55,21 +56,21 @@ router.post("/login", login);
 router.get('/profile', getProfile);
 
 router.get('/products', auth, getProducts);
-router.get('/product/:id', getProduct);
-router.post('/product', addProduct);
-router.patch('/product/:id', updateProduct);
-router.delete('/product/:id', deleteProduct);
+router.get('/product/:id', auth, getProduct);
+router.post('/product', auth, uploadFile("image"), addProduct);
+router.patch('/product/:id', auth, updateProduct);
+router.delete('/product/:id', auth, deleteProduct);
 
-router.get('/transactions', auth, getTransactions);
+router.get('/transactions', getTransactions);
 router.post('/transaction', addTransaction);
 
 router.post('/notification', notification);
 
 router.get('/categories', auth, getCategories);
-router.get('/category/:id', getCategory);
-router.post('/category', addCategory);
-router.patch('/category/:id', updateCategory);
-router.delete('/category/:id', deleteCategory);
+router.get('/category/:id', auth, getCategory);
+router.post('/category', auth, addCategory);
+router.patch('/category/:id', auth, updateCategory);
+router.delete('/category/:id', auth, deleteCategory);
 
 
 module.exports = router;

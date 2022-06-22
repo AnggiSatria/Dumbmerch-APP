@@ -1,13 +1,11 @@
-const req = require("express/lib/request");
-const res = require("express/lib/response");
-const { product, user, category, productcategory } = require("../../models");
+const { product, User, category, productcategory } = require("../../models");
 
 exports.getProducts = async (req, res) => {
   try {
     let data = await product.findAll({
       include: [
         {
-          model: user,
+          model: User,
           as: "user",
           attributes: {
             exclude: ["createdAt", "updatedAt", "password"],
@@ -34,7 +32,7 @@ exports.getProducts = async (req, res) => {
     data = JSON.parse(JSON.stringify(data));
 
     data = data.map((item) => {
-      return { ...item, image: process.env.PATH_FILE + item.image };
+      return { ...item, image: process.env.FILE_PATH + item.image };
     });
 
     res.send({
@@ -59,7 +57,7 @@ exports.getProduct = async (req, res) => {
       },
       include: [
         {
-          model: user,
+          model: User,
           as: "user",
           attributes: {
             exclude: ["createdAt", "updatedAt", "password"],
@@ -87,7 +85,7 @@ exports.getProduct = async (req, res) => {
 
     data = {
       ...data,
-      image: process.env.PATH_FILE + data.image,
+      image: process.env.FILE_PATH + data.image,
     };
 
     res.send({
@@ -108,16 +106,35 @@ exports.addProduct = async (req, res) => {
     let { categoryId } = req.body;
     categoryId = categoryId.split(",");
 
-    const data = {
-      name: req.body.name,
-      desc: req.body.desc,
-      price: req.body.price,
-      image: req.file.filename,
-      qty: req.body.qty,
-      idUser: req.user.id,
-    };
+    console.log(categoryId);
+    // const data = {
+    //   name: req.body.name,
+    //   desc: req.body.desc,
+    //   price: req.body.price,
+    //   image: req.file.filename,
+    //   qty: req.body.qty,
+    //   idUser: req.user.id,
+    // };
 
-    let newProduct = await product.create(data);
+    // let newProduct = await product.create({
+    //   ...data,
+    //   image : req.file.filename,
+    //   idUser : req.user.id // pick data from token
+    // });
+
+    // newProduct.JSON.parse(JSON.stringify(newProduct))
+
+    // newProduct = {
+    //   ...newProduct,
+    //   image : process.env.FILE_PATH + newProduct.image
+    // }
+
+    // res.send({
+    //   status : 'success',
+    //   data : {
+    //     newProduct
+    //   }
+    // })
 
     const productCategoryData = categoryId.map((item) => {
       return { idProduct: newProduct.id, idCategory: parseInt(item) };
@@ -131,7 +148,7 @@ exports.addProduct = async (req, res) => {
       },
       include: [
         {
-          model: user,
+          model: User,
           as: "user",
           attributes: {
             exclude: ["createdAt", "updatedAt", "password"],
@@ -160,7 +177,7 @@ exports.addProduct = async (req, res) => {
       status: "success...",
       data: {
         ...productData,
-        image: process.env.PATH_FILE + productData.image,
+        image: process.env.FILE_PATH + productData.image,
       },
     });
   } catch (error) {

@@ -15,6 +15,12 @@ import DarkMode from '../components/fitur/DarkMode';
 
 
 const Complain = () => {
+
+    const [show, setShow] = useState(false);
+
+    const handleClick = () => {
+        setShow(!show)
+    }
           
       document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)"
       
@@ -30,21 +36,26 @@ const Complain = () => {
 
         <div className="Page" style={{height : '85vh', display : 'flex', marginTop : '50px'}}>
             <div className="left" style={{flex : '25%', display : 'flex'}}>
-                <Left />
+                <Left handleClick={handleClick}/>
             </div>
             
             <div className="Zero" style={{height : '100%', border : '1px solid white', marginLeft : '10px', marginRight : '10px'}}></div>
 
-             <div className="right" style={{flex : '75%', display : 'flex', flexDirection : 'column'}}>
-                <div className="up" style={{display : 'flex',  flex : '90%', marginBottom : "30px"}}>
+            {
+                show ? <div className="right" style={{flex : '75%', display : 'flex', flexDirection : 'column'}}>
+                <div className="up" style={{display : 'flex', flex : '90%', marginBottom : "20px", height : '75%', overflow : "auto"}}>
                     <Right />
                 </div>
 
-               <div className="down" style={{flex : '10%', width : '100%', alignItems : 'flex-end'}}>
+                <div className="down" style={{flex : '10%', width : '100%', alignItems : 'flex-end', height : "25%"}}>
                     <Contact />
                 </div>
+            </div> : <div className="right2" style={{flex : '75%', display : 'flex', flexDirection : 'column'}}>
+                <Right2 />
             </div>
+            }
 
+            
         </div>
     </div>
   )
