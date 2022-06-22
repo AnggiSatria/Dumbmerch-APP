@@ -17,3 +17,11 @@
     font-family: 'Kdam Thmor Pro', sans-serif;
     color: #fff;
 }
+
+.spesial:hover {
+    background-color: rgb(121, 114, 114);
+}
+
+.spesial {
+    margin-bottom: 5px;
+}

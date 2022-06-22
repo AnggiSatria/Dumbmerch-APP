@@ -12,10 +12,16 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Complain from "../../pages/complainUser";
 import ComplainAdmin from "../../pages/complainAdmin"
+import "../../Assets/style.css"
 
 export default function Left(props) {
 
     const chat = [
+      {
+        img: "",
+        chats: "Hallo",
+        users: "Anggi",
+      },
       {
         img: "",
         chats: "Hallo",
@@ -26,7 +32,7 @@ export default function Left(props) {
     return (
       <List sx={{ width: '100%', maxWidth: 360}}>
         {chat.map((value)=>{
-          return <ListItem alignItems="flex-start" onClick={props.handleClick}>
+          return <ListItem alignItems="flex-start" onClick={props.handleClick} className="spesial">
           <ListItemAvatar>
             <Avatar alt="Remy Sharp" src="/broken-image.jpg"/>
           </ListItemAvatar>

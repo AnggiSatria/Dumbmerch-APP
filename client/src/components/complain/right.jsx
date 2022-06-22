@@ -10,7 +10,7 @@ const Right = () => {
 
   const chats = [
     {
-    txt:'yolo;'
+    txt:'yolobkhbikhsiuhuihuihuihuihihuihuih;'
     },
     {
       txt : "hallo"
@@ -47,6 +47,8 @@ const Right = () => {
           width: 200,
           height: 40,
           textAlign : "center",
+          color : "white",
+          position: "relative",
           backgroundColor: 'rgba(152, 150, 150, 0.46)',
           borderRadius : '5px',
           '&:hover': {
@@ -54,7 +56,7 @@ const Right = () => {
             opacity: [0.9, 0.8, 0.7],
           },
         }}
-      ><h6 style={{color : "white", boxSizing : "border-box"}}>{value.txt}</h6></Box>
+      >{value.txt}</Box>
           </div>
         </div>
         })}
