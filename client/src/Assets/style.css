@@ -25,3 +25,11 @@
 .spesial {
     margin-bottom: 5px;
 }
+
+.file::-webkit-file-upload-button {
+    color: #fff;
+}
+
+.file {
+    color: #fff;
+}

@@ -106,42 +106,34 @@ exports.addProduct = async (req, res) => {
     let { categoryId } = req.body;
     categoryId = categoryId.split(",");
 
-    console.log(categoryId);
-    // const data = {
-    //   name: req.body.name,
-    //   desc: req.body.desc,
-    //   price: req.body.price,
-    //   image: req.file.filename,
-    //   qty: req.body.qty,
-    //   idUser: req.user.id,
-    // };
+    const data = {
+      name: req.body.name,
+      desc: req.body.desc,
+      price: req.body.price,
+      image: req.file.filename,
+      qty: req.body.qty,
+      idUser: req.user.id,
+    };
 
-    // let newProduct = await product.create({
-    //   ...data,
-    //   image : req.file.filename,
-    //   idUser : req.user.id // pick data from token
-    // });
+    let newProduct = await product.create(data);
+
+    newProduct = {
+      ...newProduct,
+      image : process.env.FILE_PATH + newProduct.image
+    }
 
     // newProduct.JSON.parse(JSON.stringify(newProduct))
 
-    // newProduct = {
-    //   ...newProduct,
-    //   image : process.env.FILE_PATH + newProduct.image
-    // }
+    if(categoryId){
+       
+        const productCategoryData = categoryId.map((item) => {
+          return { idProduct: newProduct.id, idCategory: parseInt(item) };
+        });
 
-    // res.send({
-    //   status : 'success',
-    //   data : {
-    //     newProduct
-    //   }
-    // })
-
-    const productCategoryData = categoryId.map((item) => {
-      return { idProduct: newProduct.id, idCategory: parseInt(item) };
-    });
-
-    await productcategory.bulkCreate(productCategoryData);
-
+        await productcategory.bulkCreate(productCategoryData);
+    }
+   
+    
     let productData = await product.findOne({
       where: {
         id: newProduct.id,

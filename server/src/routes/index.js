@@ -43,6 +43,8 @@ const {
 const { auth } = require("../../middleware/auth");
 const { uploadFile } = require('../../middleware/uploadFile');
 
+const { filter } = require("../controllers/filter")
+
 // Route
 router.post('/user', addUsers);
 router.get('/users', getUsers);
@@ -71,6 +73,8 @@ router.get('/category/:id', auth, getCategory);
 router.post('/category', auth, addCategory);
 router.patch('/category/:id', auth, updateCategory);
 router.delete('/category/:id', auth, deleteCategory);
+
+router.get('/filter', filter);
 
 
 module.exports = router;

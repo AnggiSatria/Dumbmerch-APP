@@ -74,7 +74,7 @@ const EditProduct = () => {
                 <form action="" onSubmit={handleOnSubmit}>
                     <div className="file" style={{width : '96%', display : "flex", marginLeft : "1%", marginRight : "1%"}}>
                        
-                        <input name='img' value={product.img} onChange={handleOnChange} type='file' style={{}} ></input>
+                        <input name='img' placeholder='Upload' value={product.img} onChange={handleOnChange} type='file' style={{}} ></input>
                                 
                     </div>
 
@@ -92,6 +92,10 @@ const EditProduct = () => {
 
                     <div className="stock" style={{width : '100%', marginTop : '10px'}}>
                         <input onChange={handleOnChange} name='qty' value={product.qty} type="text" style={{width : '96%', height : '40px', marginLeft : '1%', marginRight : '1%', borderRadius : '5px'}} placeholder="stock"/>
+                    </div>
+                    
+                    <div className="categories" style={{width : '100%', marginTop : '10px'}}>
+                        <input name='qty' value={product.qty} type="text" style={{width : '96%', height : '40px', marginLeft : '1%', marginRight : '1%', borderRadius : '5px'}} placeholder="stock"/>
                     </div>
 
                     <div className="button" style={{marginTop : '30px', width : "100%", marginLeft : '1%', marginRight : '1%'}}>
