@@ -56,7 +56,7 @@ exports.uploadFile = (imageFile) => {
                 }
                 return res.status(400).send(err);
             }
-            return next()
+            return next();
         })
     }
 

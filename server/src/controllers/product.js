@@ -109,9 +109,9 @@ exports.addProduct = async (req, res) => {
       categoryId = categoryId.split(',');
     }
 
-
     const data = {
       name: req.body.name,
+      tittle : req.body.tittle,
       desc: req.body.desc,
       price: req.body.price,
       image: req.file.filename,
@@ -133,11 +133,9 @@ exports.addProduct = async (req, res) => {
         const productCategoryData = categoryId.map((item) => {
           return { idProduct: newProduct.id, idCategory: parseInt(item) };
         });
-
-        await productcategory.bulkCreate(productCategoryData);
+         await productcategory.bulkCreate(productCategoryData);
     }
-   
-    
+
     let productData = await product.findOne({
       where: {
         id: newProduct.id,
