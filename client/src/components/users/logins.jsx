@@ -163,7 +163,7 @@ console.log(login);
     }
 
     const admin = () => {
-      navigate("/homepage-admin")
+      navigate("/product")
     }
     
     const [show, setShow] = React.useState(false);

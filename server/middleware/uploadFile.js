@@ -1,6 +1,4 @@
 const multer = require("multer");
-const { max } = require("pg/lib/defaults");
-
 
 exports.uploadFile = (imageFile) => {
     const storage = multer.diskStorage({
@@ -15,27 +13,27 @@ exports.uploadFile = (imageFile) => {
 
     // cek type file
     const fileFilter = function(req, file, cb){
-        if(file.filename === imageFile){
+        if(file.fieldname === imageFile){
             if(!file.originalname.match(/\.(jpg|JPG|JPEG|jpeg|png|PNG|gif|GIF)$/)){
                 req.fileValidationError = {
                     message : "ONLY IMAGE FILE ARE ALLOWED"
                 }
-                return cb(new Error("only image file allowed"))
+                return cb(new Error("only image file allowed"), false)
             }
-            cb(null, true)
         }
+        cb(null, true)
     }
 
     // file size
     const sizeInMB = 10;
-    const maxSize =sizeInMB * 1000 * 1000
+    const maxSize = sizeInMB * 1000 * 1000
 
     const upload = multer({
         storage,
         fileFilter,
         limits: {
-            fileSize: maxSize
-        }
+            fileSize: maxSize,
+        },
     }).single(imageFile)
 
     return (req, res, next) => {
@@ -44,18 +42,19 @@ exports.uploadFile = (imageFile) => {
                 return res.status(400).send(req.fileValidationError)
             }
 
-            if(!req.file && !err){
-                return res.status(400).send({
-                    message : "Please Select File To Uploads"
-                })
-            }
+            // if(!req.file && !err){
+            //     return res.status(400).send({
+            //         message : "Please Select File To Uploads"
+            //     })
+            // }
 
             if(err){
                 if(err.code === "LIMIT_FILE_SIZE"){
                     return res.status(400).send({
-                        message : "Max File Size 10 MB"
+                        message : "Max File Size 10 MB",
                     })
                 }
+                return res.status(400).send(err);
             }
             return next()
         })

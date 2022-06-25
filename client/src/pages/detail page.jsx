@@ -40,7 +40,7 @@ const DetailPage = () => {
 
           <div className="right" style={{flex : '50%', display : 'flex', justifyContent : 'flex-start', marginLeft : '20px', flexDirection : 'column', marginLeft : '10px', marginRight : '30px'}}>
               <div className="tittle" style={{color : 'white'}}>
-                <h1>Mouse</h1>
+                <h1 style={{color : "rgba(249, 37, 76, 0.92)"}}>Mouse</h1>
                 <p>Stock : 600</p>
               </div>
 
@@ -57,7 +57,7 @@ const DetailPage = () => {
               </div>
 
               <div className="price" style={{color : 'red', display : 'flex', justifyContent : 'flex-end'}}>
-                <h2>Rp.300.000,-</h2>
+                <h2 style={{color : "rgba(249, 37, 76, 0.92)"}}>Rp.300.000,-</h2>
               </div>
 
               <Button onClick={handleNavigate} variant='danger' style={{width : '100%', height : '40px', backgroundColor : 'red', color : 'white'}}>Buy</Button>

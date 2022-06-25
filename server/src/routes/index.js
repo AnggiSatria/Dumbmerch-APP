@@ -60,7 +60,7 @@ router.get('/profile', getProfile);
 router.get('/products', auth, getProducts);
 router.get('/product/:id', auth, getProduct);
 router.post('/product', auth, uploadFile("image"), addProduct);
-router.patch('/product/:id', auth, updateProduct);
+router.patch('/product/:id', auth, uploadFile("image"), updateProduct);
 router.delete('/product/:id', auth, deleteProduct);
 
 router.get('/transactions', getTransactions);

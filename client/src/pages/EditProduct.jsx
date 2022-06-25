@@ -53,6 +53,24 @@ const EditProduct = () => {
         console.log(product)
         handleNavigate()
     }
+
+    const categories = [
+        {
+            name : "hat",
+        },
+        {
+            name : "hat",
+        },
+        {
+            name : "hat",
+        },
+        {
+            name : "hat",
+        },
+        {
+            name : "hat",
+        },
+    ]
     
 
   return (
@@ -94,8 +112,13 @@ const EditProduct = () => {
                         <input onChange={handleOnChange} name='qty' value={product.qty} type="text" style={{width : '96%', height : '40px', marginLeft : '1%', marginRight : '1%', borderRadius : '5px'}} placeholder="stock"/>
                     </div>
                     
-                    <div className="categories" style={{width : '100%', marginTop : '10px'}}>
-                        <input name='qty' value={product.qty} type="text" style={{width : '96%', height : '40px', marginLeft : '1%', marginRight : '1%', borderRadius : '5px'}} placeholder="stock"/>
+                    <div className="categories" style={{width : '96%', marginTop : '10px', marginLeft : "1%", marginRight : "1%", backgroundColor : "#fff", height : "40px", padding : "5px", display : "flex", flexWrap : "wrap"}}>
+                    {categories.map((value) => {
+                        return <form action="">
+                            <input name='qty' value={product.qty} type="checkbox" style={{borderRadius : '5px'}}/>
+                            <label htmlFor="" name="category" style={{fontSize : "20px", marginLeft : "10px", marginRight : "10px"}}>{value.name}</label>
+                        </form>
+                    })}   
                     </div>
 
                     <div className="button" style={{marginTop : '30px', width : "100%", marginLeft : '1%', marginRight : '1%'}}>

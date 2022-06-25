@@ -24,7 +24,7 @@ export default function Left(props) {
       },
       {
         img: "",
-        chats: "Hallo",
+        chats: "Hallo babyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy yyyyyy",
         users: "Anggi",
       },
     ]
@@ -36,8 +36,8 @@ export default function Left(props) {
           <ListItemAvatar>
             <Avatar alt="Remy Sharp" src="/broken-image.jpg"/>
           </ListItemAvatar>
-          <ListItemText style={{color : "white"}}
-            primary={value.chats}
+          <ListItemText style={{color : "rgba(242, 13, 72, 0.86)"}}
+            primary={value.users}
             secondary={
               <React.Fragment>
                 <Typography
@@ -46,7 +46,7 @@ export default function Left(props) {
                   variant="body2"
                   color="text.primary"
                 >
-                  <b style={{color : "grey"}}>{value.users}</b>
+                  <b style={{color : "grey", wordWrap : "break-word"}}>{value.chats}</b>
                 </Typography>
                 
               </React.Fragment>

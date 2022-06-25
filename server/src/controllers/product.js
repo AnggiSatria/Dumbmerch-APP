@@ -104,7 +104,11 @@ exports.getProduct = async (req, res) => {
 exports.addProduct = async (req, res) => {
   try {
     let { categoryId } = req.body;
-    categoryId = categoryId.split(",");
+
+    if (categoryId) {
+      categoryId = categoryId.split(',');
+    }
+
 
     const data = {
       name: req.body.name,
@@ -112,7 +116,7 @@ exports.addProduct = async (req, res) => {
       price: req.body.price,
       image: req.file.filename,
       qty: req.body.qty,
-      idUser: req.user.id,
+      idUser: req.User.id,
     };
 
     let newProduct = await product.create(data);

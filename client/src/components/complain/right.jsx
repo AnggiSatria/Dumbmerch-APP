@@ -18,6 +18,36 @@ const Right = () => {
     {
       txt: "hallo"
     },
+    {
+      txt: "hallo"
+    },
+    {
+      txt: "hallo"
+    },
+    {
+      txt: "hallo"
+    },
+    {
+      txt: "hallo"
+    },
+    {
+      txt: "hallo"
+    },
+    {
+      txt: "hallo"
+    },
+    {
+      txt: "hallo"
+    },
+    {
+      txt: "hallo"
+    },
+    {
+      txt: "hallo"
+    },
+    {
+      txt: "hallo"
+    },
   ]
 
   const chats2 = [
@@ -47,6 +77,7 @@ const Right = () => {
           width: 200,
           height: 40,
           textAlign : "center",
+          wordWrap : "break-word",
           color : "white",
           position: "relative",
           backgroundColor: 'rgba(152, 150, 150, 0.46)',
@@ -73,12 +104,14 @@ const Right = () => {
           textAlign: "center",
           backgroundColor: 'rgba(46, 40, 44, 0.77)',
           borderRadius : '5px',
+          color : 'white',
+          wordWrap : "break-word",
           '&:hover': {
             backgroundColor: 'primary.main',
             opacity: [0.9, 0.8, 0.7],
           },
         }}
-      ><label htmlFor="" style={{color : 'white', textAlign: "center"}}>{value.txt}</label></Box>
+      >{value.txt}</Box>
       <img src={rightImg} alt="" style={{width : "15px", height : "40px"}}/>
           </div>
         </div>
