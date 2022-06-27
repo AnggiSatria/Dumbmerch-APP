@@ -14,6 +14,10 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { styled } from '@mui/system';
 import { Users } from "../dummy/Users"
+import { useMutation } from "react-query";
+import { API } from "../../config/api";
+import { UserContext } from "../../context/userContext";
+import { useContext } from "react";
 
 const blue = {
     100: '#DAECFF',
@@ -124,6 +128,8 @@ function Logins(){
     password : "",
   })
 
+  const { email, password } = login
+
   const handleOnChange = (e) => {
     setLogin({
       ...login,
@@ -165,52 +171,90 @@ console.log(login);
     const admin = () => {
       navigate("/product")
     }
+
+    const [state, dispatch] = useContext(UserContext)
     
-    const [show, setShow] = React.useState(false);
+    const [show, setShow] = React.useState(null);
 
     const dataUser = Users
     console.log(dataUser);
 
-    const handleOnSubmit = (e) => { //handlesubmit gunanya ketika submit dia membawa state yang ada di dalamnya
-        e.preventDefault() //biar tidak refesh ke halaman baru
+    const handleOnSubmit = useMutation(async(e) => { //handlesubmit gunanya ketika submit dia membawa state yang ada di dalamnya
+        try {
+          e.preventDefault() //biar tidak refesh ke halaman baru
 
-         const data = dataUser.find((user) => user.email === login.email ) 
-         console.log(data);
+          const config = {
+            headers: {
+              'Content-type': 'application/json',
+            },
+          };
 
-         if (data) {
-             if (data.password !== login.password){
-                setShow(true)
-                console.log('password salah');
-             } else {
-                 setShow(false)
-                 if(data.status === "Users"){
-                   route()
-                 }else if (data.status === "Admin"){
-                   admin()
-                 }
-                 console.log('login berhasil');
-             }
-         } else {
-             setShow(true)
-             console.log('email tidak terdaftar');
-         }
+          const body = JSON.stringify(login)
+
+          const response = await API.post('/login', body, config);
+
+          setShow(alert);
+          console.log(response.data.data);
+
+          const user = response.data.data.user
+
+          dispatch({
+            type: 'LOGIN_SUCCESS',
+            payload: user
+          });
+
+          if(user.status == 'admin'){
+              navigate('/product')
+          } else {
+              navigate('/homepage')
+          } 
+
+        } catch (error) {
+          const alert = (
+            <Stack sx={{ width: '90%', marginTop: "10px", marginLeft : "5%", marginRight: "%"}} spacing={2}>
+                            <Alert severity="error">{error.response.data.message}</Alert>
+                        </Stack>
+          )
+          setShow(alert)
+          console.log(error);
         }
+        
+        
+
+        //  const data = dataUser.find((user) => user.email === login.email ) 
+        //  console.log(data);
+
+        //  if (data) {
+        //      if (data.password !== login.password){
+        //         setShow(true)
+        //         console.log('password salah');
+        //      } else {
+        //          setShow(false)
+        //          if(data.status === "Users"){
+        //            route()
+        //          }else if (data.status === "Admin"){
+        //            admin()
+        //          }
+        //          console.log('login berhasil');
+        //      }
+        //  } else {
+        //      setShow(true)
+        //      console.log('email tidak terdaftar');
+        //  }
+        })
 
     return (
         <div>
             <div className="All" style={{display : 'flex', flexDirection : 'column', width : '350px', backgroundColor : 'rgba(34, 32, 33, 0.8)', borderRadius : '10px'}}>
-                {
-                    show && (<Stack sx={{ width: '90%', marginTop: "10px", marginLeft : "5%", marginRight: "%"}} spacing={2}>
-                            <Alert severity="error">Data Tidak Ditemukan</Alert>
-                        </Stack>)
-                }
+
+              {show && show}
 
                 <div className="Login" style={{marginTop : '10px', marginLeft : '30px'}}>
                     <h1 style={{fontSize : '30px', color : 'white'}}>Login</h1>
                 </div>
 
                 <div className="page" style={{marginLeft : '30px'}}>
-                  <form action="" onSubmit={handleOnSubmit}>
+                  <form action="" onSubmit={(e) => handleOnSubmit.mutate(e)}>
                     <div className="Email">
                         <input name="email" value={login.email} type="email" placeholder="Email" style={{width: '90%', height : '45px', borderRadius : '5px', border : 'none'}} onChange={handleOnChange}/>
                     </div>

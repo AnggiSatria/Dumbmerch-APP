@@ -12,7 +12,10 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { styled } from '@mui/system';
 import { Users } from "../dummy/Users";
-
+import { useMutation } from "react-query";
+import { API } from "../../config/api"; 
+import { useContext } from "react"; 
+import { UserContext } from "../../context/userContext";
 
 const blue = {
     100: '#DAECFF',
@@ -141,63 +144,92 @@ function Registers(){
         event.preventDefault();
       };
 
-    const [show, setShow] = useState(false);
+    const [state, dispatch] = useContext(UserContext)
 
-    const handleAlert = () => setShow(true);
+    const [show, setShow] = useState(null);
 
     const [register, setRegister] = useState({
-      fullname : "",
+      name : "",
       email : "",
-      password : ""
+      password : "",
     });
+
+    const { name, email, password } = register;
 
     const handleOnChange = (e) => {
       setRegister({
         ...register, 
         [e.target.name] : e.target.value
       })
-    }
+    }   
 
-    const handleOnSubmit = (e) => {
-      e.preventDefault()
+    const handleOnSubmit = useMutation(async(e) => {
 
-      if(register.fullname === ""){
-        setShow(false)
-      }else if(register.email === ""){
-        setShow(false)
-      }else if(register.password === ""){
-        setShow(false)
-      }else{
-        setShow(true)
-      }
-      console.log(register)
-    }
+      try {
+        e.preventDefault()
+
+        const config = {
+          headers : {
+            'Content-type' : 'application/json',
+          },
+        }
+
+        //Convert Object to string
+        const body = JSON.stringify(register)
+        //insert data user
+        const response = await API.post('/register', body, config)
+
+        // Handling reponse
+        const alert = (
+          <Stack sx={{ width: '90%', marginTop: "10px", marginLeft : "5%", marginRight: "%"}} spacing={2}>
+              <Alert severity="success">Data Berhasil Ditambahkan</Alert>
+          </Stack> 
+        );
+        setShow(alert)
+
+        console.log(response.data.data);
+
+      } catch (error) {
+        const alert = (
+          <Stack sx={{ width: '90%', marginTop: "10px", marginLeft : "5%", marginRight: "%"}} spacing={2}>
+              <Alert severity="error">{error.response.data.message}</Alert>
+          </Stack> 
+        );
+        setShow(alert)
+        console.log(error);
+      };
+
+
+      // if(register.fullname === ""){
+      //   setShow(false)
+      // }else if(register.email === ""){
+      //   setShow(false)
+      // }else if(register.password === ""){
+      //   setShow(false)
+      // }else{
+      //   setShow(true)
+      // }
+    })
 
     return (
         <div>
             <div className="All" style={{display : 'flex', flexDirection : 'column', width : '350px', backgroundColor : 'rgba(34, 32, 33, 0.8)', borderRadius : '10px'}}>
                 
-            {
-                    show ? <Stack sx={{ width: '90%', marginTop: "10px", marginLeft : "5%", marginRight: "%"}} spacing={2}>
-                    <Alert severity="success">Data telah ditambahkan</Alert>
-                </Stack> : <Stack sx={{ width: '90%', marginTop: "10px", marginLeft : "5%", marginRight: "%"}} spacing={2}>
-                            <Alert severity="error">Data Tidak Boleh Kosong</Alert>
-                        </Stack>
-                }
-                
-                <div className="Login" style={{marginTop : '10px', marginLeft : '30px'}}>
+                {show && show}
+
+                <div className="Register" style={{marginTop : '10px', marginLeft : '30px'}}>
                     <h1 style={{fontSize : '30px', color : "white"}}>Register</h1>
                 </div>
 
-                <form action="" onSubmit={handleOnSubmit}>
+                <form action="" onSubmit={(e) => handleOnSubmit.mutate(e)}>
                   <div className="page" style={{marginLeft : '30px'}}>
                   
                       <div className="Name">
-                          <input onChange={handleOnChange} name="fullname" value={register.fullname} type="text" placeholder="Name" style={{width: '90%', height : '40px', borderRadius : '5px', border : 'none'}}/>
+                          <input onChange={handleOnChange} name="name" value={name} type="text" placeholder="Name" style={{width: '90%', height : '40px', borderRadius : '5px', border : 'none'}}/>
                       </div>
 
                       <div className="Email" style={{marginTop : '15px'}}>
-                          <input onChange={handleOnChange} name="email" value={register.email} type="email" placeholder="Email" style={{width: '90%', height : '40px', borderRadius : '5px', border : 'none'}}/>
+                          <input onChange={handleOnChange} name="email" value={email} type="email" placeholder="Email" style={{width: '90%', height : '40px', borderRadius : '5px', border : 'none'}}/>
                       </div>
 
                       <div className="password" style={{marginTop : '15px', width : "100%"}}>
@@ -207,7 +239,7 @@ function Registers(){
                                   placeholder="Password"
                                   name="password"
                                   type={values.showPassword ? 'text' : 'password'}
-                                  value={register.password}
+                                  value={password}
                                   onChange={handleOnChange}
                                   style={{width : "90%"}}
                                   endAdornment={
@@ -227,7 +259,7 @@ function Registers(){
                       </div>
 
                   
-                          <Button type="submit" onClick={handleAlert} variant="danger" style={{borderRadius : '5px', marginTop : '15px', marginBottom : '30px',width : '90%',textDecoration : 'none', color : 'white', textAlign : 'center'}}>Register</Button>
+                          <Button type="submit" variant="danger" style={{borderRadius : '5px', marginTop : '15px', marginBottom : '30px',width : '90%',textDecoration : 'none', color : 'white', textAlign : 'center'}}>Register</Button>
                   </div>
                 </form>
             </div>

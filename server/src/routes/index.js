@@ -13,7 +13,9 @@ const { addProfile } = require("../controllers/profile")
 
 
 //user
-// router.post("/users", addUser);
+router.post("/user", addUser);
+router.get("/users", getUsers)
+router.get("/user/:id", getUser)
 
 // Products
 router.get("/products", getProduct);
