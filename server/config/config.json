@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "be-dumbmerch",
+    "database": "ApiDumbmerch",
     "host": "localhost",
     "dialect": "mysql"
   },

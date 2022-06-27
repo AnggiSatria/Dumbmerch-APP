@@ -1,49 +1,73 @@
-const req = require("express/lib/request");
-const res = require("express/lib/response");
-const { User, profile } = require("../../models");
+// Models
+const { user, profile, product, transaction } = require("../../models");
 
-exports.addUsers = async (req, res) => {
+// Controller
+exports.addUser = async (req, res) => {
   try {
-    await User.create(req.body);
-
-    res.send({
-      status: "success",
-      message: "Add user finished",
+    await user.create(req.body);
+    res.status(201).send({
+      status: "Success",
+      message: "Add User Success",
     });
   } catch (error) {
     console.log(error);
-    res.send({
-      status: "failed",
+    res.status(401).send({
+      status: "Failed",
       message: "Server Error",
     });
   }
 };
 
+// ============== GET USER ========================
 exports.getUsers = async (req, res) => {
   try {
-    const users = await User.findAll({
-      include: {
-        model: profile,
-        as: "profile",
-        attributes: {
-          exclude: ["createdAt", "updatedAt", "idUser"],
-        },
-      },
+    const data = await user.findAll({
       attributes: {
         exclude: ["password", "createdAt", "updatedAt"],
       },
+      include: [
+        {
+          model: profile,
+          as: "profile",
+          attributes: {
+            exclude: ["idUser", "createdAt", "updatedAt"],
+          },
+        },
+        {
+          model: product,
+          as: "product",
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+        {
+          model: transaction,
+          as: "buyerTransactions",
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+        {
+          model: transaction,
+          as: "sellerTransactions",
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+      ],
     });
 
-    res.send({
-      status: "success",
+    res.status(200).send({
+      status: "Success",
+      message: "Get Users Success",
       data: {
-        users,
+        user: data,
       },
     });
   } catch (error) {
     console.log(error);
-    res.send({
-      status: "failed",
+    res.status(404).send({
+      status: "Failed",
       message: "Server Error",
     });
   }
@@ -53,79 +77,64 @@ exports.getUser = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const data = await User.findOne({
-      where: {
-        id,
-      },
-      include: {
-        model: profile,
-        as: "profile",
-        attributes: {
-          exclude: ["createdAt", "updatedAt", "idUser"],
-        },
-      },
-      attributes: {
-        exclude: ["password", "createdAt", "updatedAt"],
-      },
+    const data = await user.findAll({
+      where: { id },
     });
-
-    res.send({
-      status: "success",
+    res.status(200).send({
+      status: "Success",
+      message: `Get User ${id} Success `,
       data: {
         user: data,
       },
     });
   } catch (error) {
     console.log(error);
-    res.send({
-      status: "failed",
+    res.status(404).send({
+      status: "Failed",
       message: "Server Error",
     });
   }
 };
 
+// ============== UPDATE USER ========================
 exports.updateUser = async (req, res) => {
   try {
     const { id } = req.params;
 
-    await User.update(req.body, {
-      where: {
-        id,
-      },
+    await user.update(req.body, {
+      where: { id },
     });
 
-    res.send({
-      status: "success",
-      message: `Update user id: ${id} finished`,
-      data: req.body,
+    res.status(200).send({
+      status: "Success",
+      message: `Update User id: ${id} Success `,
     });
   } catch (error) {
     console.log(error);
-    res.send({
-      status: "failed",
+    res.status(404).send({
+      status: "Failed",
       message: "Server Error",
     });
   }
 };
 
+// ============== DELETE USER ==================
 exports.deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
 
-    await User.destroy({
-      where: {
-        id,
-      },
+    await user.destroy({
+      where: { id },
     });
 
-    res.send({
-      status: "success",
-      message: `Delete user id: ${id} finished`,
+    res.status(200).send({
+      status: "Success",
+      message: `Delete User id: ${id} Success `,
     });
   } catch (error) {
     console.log(error);
-    res.send({
-      status: "failed",
+    res.status(404).send({
+      status: "Delete Failed",
       message: "Server Error",
     });
   }

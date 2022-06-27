@@ -1,129 +1,148 @@
-// import models
-const { User } = require("../../models");
-// import joi
+const { user, profile } = require("../../models");
+
 const Joi = require("joi");
-//import bcrypt
 const bcrypt = require("bcrypt");
-// import jwt
-const jwt =require("jsonwebtoken");
-// exports file register
+const jwt = require("jsonwebtoken");
+
+// ============= REGISTER =============
 exports.register = async (req, res) => {
-// create validation
-    const schema = Joi.object({
-        name: Joi.string().min(3).required(),
-        email: Joi.string().email().min(5).required(),
-        password: Joi.string().min(6).required()
+  const schema = Joi.object({
+    name: Joi.string().min(2).required(),
+    email: Joi.string().email().min(3).required(),
+    password: Joi.string().min(6).required(),
+  });
+
+  const { error } = schema.validate(req.body);
+
+  if (error) {
+    return res.status(400).send({
+      error: {
+        message: error.details[0].message,
+      },
+    });
+  }
+
+  try {
+    // Cek Email
+    const email = await user.findOne({
+      where: {
+        email: req.body.email
+      }
+    })
+
+    if (email) {
+      return res.status(401).send({
+        status: "failed",
+        message: "Email telah terdaftar",
+      });
+    }
+
+    // Hashed Password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+    // Tambah user
+    const newUser = await user.create({
+      name: req.body.name,
+      email: req.body.email,
+      password: hashedPassword,
+      status: "customer"
     });
 
-    const { error } = schema.validate(req.body);
-// create condition if validation error
-    if(error){
-        return res.status(400).send({
-            error: {
-                message: "wrong input"
-            }
-        });
-    }
+    // Json Web Token
+    const token = jwt.sign({ id: newUser.id }, process.env.SECRET_KEY);
 
-    try {
-//create round
-        const salt = await bcrypt.genSalt(10);
-//encrypt password
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    res.status(201).send({
+      status: "Success",
+      message: "Register success",
+      data: {
+        name: newUser.name,
+        email: newUser.email,
+        token,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(401).send({
+      status: "Failed",
+      message: "Server Error",
+    });
+  }
+};
 
-       
-
-//create variable to accomodate request from user
-       const newUser = await User.create({
-           name: req.body.name,
-           email: req.body.email,
-           password: hashedPassword,
-       });
-//create TOKEN
-        const token = jwt.sign({newUser}, process.env.SECRET_KEY);
-//response status if data success
-       res.status(201).send({
-           status : "success",
-           data: {newUser},
-           token
-       })
-    //response if data error    
-    } catch (error) {
-        console.log(error);
-        res.send({
-            status : "error",
-            message : "Server Error"
-        })
-    }
-}
-
+// ============== LOGIN ==============
 exports.login = async (req, res) => {
-//make validation
-    const schema = Joi.object({
-        email: Joi.string().email().min(5).required(),
-        password: Joi.string().min(6).required()
+  //Validation
+  const schema = Joi.object({
+    email: Joi.string().min(5).required(),
+    password: Joi.string().min(3).required(),
+  });
+
+  const { error } = schema.validate(req.body);
+
+  if (error) {
+    res.status(400).send({
+      message: error.details[0].message,
+    });
+  }
+
+  try {
+    const userExist = await user.findOne({
+      where: {
+        email: req.body.email,
+      },
+      include: [
+        {
+          model: profile,
+          as: "profile",
+          attributes: {
+            exclude: ["idUser", "createdAt", "updatedAt"],
+          }
+        }
+      ],
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
+      },
     });
 
-    const { error } = schema.validate(req.body);
-//catch error
-    if(error){
-        return res.status(400).send({
-            error: {
-                message: "wrong input"
-            }
-        });
+    // Check Email
+    if (!userExist) {
+      return res.status(400).send({
+        status: "failed",
+        message: "Email belum terdaftar",
+      });
     }
 
-    try {
-//find user by email
-        const userExist = await User.findOne({
-            where: {
-                email : req.body.email
-            },
-            exclude : ["createdAt", "updatedAt"]
-        });
-//catch data if wrong input
-        if(!userExist){
-            return res.status(400).send({
-                status : "failed",
-                message : "wrong input"
-            });
-        }
-//for validate password if dont use bcrypt
-        // if(userExist.password !== req.body.password){
-        //     return res.status(400).send({
-        //         status : "failed",
-        //         message : "wrong input"
-        //     });
-        // }
-// for compare password to encrypt or database
-        const isValid = await bcrypt.compare(req.body.password, userExist.password)
-
-        console.log(isValid)
-//catch the error
-        if(!isValid){
-            return res.status(400).send({
-                status : "error",
-                message : 'Email or Password not match'
-            })
-        }
-//create TOKEN
-    
-const token = jwt.sign({userExist}, process.env.SECRET_KEY);
-
-        console.log(token);
-//catch if data success
-        res.status(200).send({
-            status : "Success",
-            data : {userExist},
-            token
-        });
-        
-    } catch (error) {
-        console.log(error);
-        res.send({
-            status : "error",
-            message : "server error"
-        })
+    // Check Password
+    const isValid = await bcrypt.compare(req.body.password, userExist.password);
+    if (!isValid) {
+      return res.status(400).send({
+        status: "failed",
+        message: "Password Salah",
+      });
     }
-}
+
+    // Json Web Token
+    const token = jwt.sign({ id: userExist.id }, process.env.SECRET_KEY);
+
+    res.status(200).send({
+      status: "Success",
+      message: "Berhasil Login",
+      data: {
+        user: {
+          name: userExist.name,
+          email: userExist.email,
+          status: userExist.status,
+          token,
+          profile: userExist.profile,
+        },
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(401).send({
+      status: "Failed",
+      message: "Server Error",
+    });
+  }
+};

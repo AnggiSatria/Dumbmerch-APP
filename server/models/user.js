@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class user extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,57 +11,43 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasOne(models.profile, {
-        as: "profile",
+      user.hasOne(models.profile, {
+        as : "profile",
         foreignKey : {
-          name : "idUser"
-        },
-      });
+          name: "idUser"
+        }
+      })
 
-      User.hasMany(models.product, {
-        as : "products",
-        foreignKey : {
-          name : "idUser"
-        },
-      });
+      user.hasMany(models.product,{
+        as: "product",
+        foreignKey: {
+          name: "idUser"
+        }
+      })
 
-      User.hasMany(models.transaction, {
-        as : "buyerTransaction",
-        foreignKey : {
-          name : "idBuyer"
-        },
-      });
+      user.hasMany(models.transactions, {
+        as:"buyerTransactions",
+        foreignKey:{
+          name: "idBuyer"
+        }
+      })
 
-      User.hasMany(models.transaction, {
-        as : "sellerTransaction",
-        foreignKey : {
-          name : "idSeller"
-        },
-      });
-
-      User.hasMany(models.chat, {
-        as : "customerComplain",
-        foreignKey : {
-          name : "idSender"
-        },
-      });
-
-      User.hasMany(models.chat, {
-        as : "adminComplain",
-        foreignKey : {
-          name : "idRecipient"
-        },
-      });
+      user.hasMany(models.transactions, {
+        as:"sellerTransactions",
+        foreignKey:{
+          name: "idSeller"
+        }
+      })
     }
   }
-  User.init({
-    name: DataTypes.STRING,
+  user.init({
     email: DataTypes.STRING,
     password: DataTypes.STRING,
+    name: DataTypes.STRING,
     status: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'user',
   });
-  return User;
+  return user;
 };

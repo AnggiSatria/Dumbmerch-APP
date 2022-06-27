@@ -1,21 +1,19 @@
-const express = require("express");
+const express = require('express')
+require('dotenv').config()
 
-require("dotenv").config();
-
-const app = express();
+const router = require('./src/routes')
 
 const cors = require('cors')
 
-const router = require("./src/routes")
+const app = express()
+const port = 5000
 
-const PORT = 5000;
+app.use(express.json())
 
-app.use(express.json());
+app.use(cors())
 
-app.use(cors());
+app.use('/api/v1/', router)
+app.use('/uploads', express.static('uploads'))
 
-app.use("/api/v1", router)
 
-app.use("/uploads", express.static('uploads'))
-
-app.listen(PORT, () => console.log(`server running on port : ${PORT}!`))
+app.listen(port, (() => console.log(`Running at port  ${port}`)))

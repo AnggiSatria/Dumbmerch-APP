@@ -24,7 +24,7 @@ export default function Left(props) {
       },
       {
         img: "",
-        chats: "Hallo babyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy yyyyyy",
+        chats: "Hallo",
         users: "Anggi",
       },
     ]

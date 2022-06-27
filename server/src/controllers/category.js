@@ -1,123 +1,140 @@
-const req = require("express/lib/request");
-const res = require("express/lib/response");
-const { category, productcategory } = require("../../models");
+const { category } = require("../../models");
 
-exports.getCategories = async (req, res) => {
-  try {
-    const data = await category.findAll({
-      attributes: {
-        exclude: ["createdAt", "updatedAt"],
-      },
-    });
-
-    res.send({
-      status: "success...",
-      data,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      status: "failed",
-      message: "Server Error",
-    });
-  }
-};
-
+// ============== GET CATAGORY ===============
 exports.getCategory = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const data = await category.findOne({
-      where: {
-        id,
-      },
-      attributes: {
-        exclude: ["createdAt", "updatedAt"],
-      },
-    });
+    try {
+        const categories = await category.findAll({
+            attributes: {
+                exclude: ["createdAt", "updatedAt"]
+            }
+        });
 
-    res.send({
-      status: "success...",
-      data,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      status: "failed",
-      message: "Server Error",
-    });
-  }
+        res.status(200).send({
+            status: "Success",
+            message: "Get all category success",
+            data: {
+                categories
+            },
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({
+            status: "Get data Failed",
+            message: "Server Error",
+        });
+    }
 };
 
+// ============== ADD CATEGORIES ===============
 exports.addCategory = async (req, res) => {
-  try {
-    const newCategory = await category.create(req.body);
+    try {
+        let newCategory = await category.create(req.body);
 
-    res.send({
-      status: "success...",
-      data: {
-        id: newCategory.id,
-        name: newCategory.name,
-      },
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      status: "failed",
-      message: "Server Error",
-    });
-  }
+        res.status(200).send({
+            status: "Success",
+            message: "Add Category Success",
+            data: {
+                category: {
+                    id: newCategory.id,
+                    name: newCategory.name
+                }
+            },
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            status: "Add Category Failed",
+            message: "Server Error",
+        });
+    }
 };
 
+// ============ GET DETAIL CATEGORY ========
+exports.getDetailCategory = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const categories = await category.findOne({
+            where: { id },
+            attributes: {
+                exclude: ["createdAt", "updatedAt"]
+            }
+        });
+
+        res.status(200).send({
+            status: "Success",
+            message: `Get detail category id: ${id} success`,
+            data: {
+                category: categories,
+            },
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({
+            status: "Get detail data failed",
+            message: "Server Error",
+        });
+    }
+};
+
+// ============ UPDATED CATEGORY ==============
 exports.updateCategory = async (req, res) => {
-  try {
     const { id } = req.params;
-    const newCategory = await category.update(req.body, {
-      where: {
-        id,
-      },
-    });
 
-    res.send({
-      status: "success...",
-      data: {
-        id: newCategory.id,
-        name: newCategory.name,
-      },
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      status: "failed",
-      message: "Server Error",
-    });
-  }
+    try {
+        const data = req.body
+        console.log(data)
+        let updateCategory = await category.update({
+            ...data
+        },
+            { where: { id } }
+        );
+
+        console.log(updateCategory)
+
+        res.status(200).send({
+            status: "Success",
+            message: `Update category at id: ${id} success`,
+            data: {
+                category: {
+                    id: id,
+                    name: data.name
+                }
+            },
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({
+            status: "Updated product failed",
+            message: "Server Error",
+        });
+    }
 };
 
+// ============ DELETE CATEGORIES ===========
 exports.deleteCategory = async (req, res) => {
-  try {
     const { id } = req.params;
 
-    await category.destroy({
-      where: {
-        id,
-      },
-    });
+    try {
+        const data = await category.destroy({
+            where: { id },
+        });
 
-    await productcategory.destroy({
-      where: {
-        idCategory: id,
-      },
-    });
+        console.log(data)
 
-    res.send({
-      status: "success",
-      message: `Delete category id: ${id} finished`,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      status: "failed",
-      message: "Server Error",
-    });
-  }
+        res.status(200).send({
+            status: "Success",
+            message: `Delete category: ${id} success`,
+            data: {
+                id: { id }
+            },
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(401).send({
+            status: "Delete category failed",
+            message: "Server Error",
+        });
+    }
 };
+
