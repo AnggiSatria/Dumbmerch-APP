@@ -1,10 +1,25 @@
 import React from 'react'
 import IMG from '../../Assets/Dumbmerch Nav.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Font from "../../Assets/Font.module.css";
-
+import { useContext } from 'react';
+import { UserContext } from '../../context/userContext';
+import { Nav } from 'react-bootstrap';
 
 const NavbarAdmin = () => {
+
+    const [state, dispatch] = useContext(UserContext)
+
+    const navigate = useNavigate()
+
+    const logout = () => {
+        console.log(state);
+        dispatch({
+            type : "LOGOUT",
+        })
+        navigate("/")
+    }
+
   return (
     <div>
     <nav>
@@ -18,7 +33,7 @@ const NavbarAdmin = () => {
                     <Link  to="/complain-admin" style={{paddingRight : '20px', textDecoration : 'none'}}><li className={Font.Font} style={{color : 'white', textDecoration : 'none'}}>Complain</li></Link>
                     <Link to="/category" style={{paddingRight : '20px', textDecoration : "none"}}><li className={Font.Font} style={{color: 'white', textDecoration : 'none'}}>Category</li></Link>
                     <Link  to="/product"style={{paddingRight : '20px', textDecoration : 'none'}}><li className={Font.Font} style={{color : 'white', textDecoration : 'none'}}>Product</li></Link>
-                    <Link  to="/" style={{textDecoration : 'none'}}><li className={Font.Font} style={{color : 'white', textDecoration : 'none'}}>Logout</li></Link>
+                    <Nav.Link onClick={logout} style={{textDecoration : 'none'}}><li className={Font.Font} style={{color : 'white', textDecoration : 'none'}}>Logout</li></Nav.Link>
                 </ul>
             </div>
         </div>

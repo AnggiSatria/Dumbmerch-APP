@@ -1,4 +1,5 @@
 import { createContext, useReducer } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const UserContext = createContext();
 
@@ -6,6 +7,7 @@ const initialState = {
   isLogin: false,
   user: {},
 };
+
 
 const reducer = (state, action) => {
   const { type, payload } = action;

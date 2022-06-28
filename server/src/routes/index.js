@@ -5,7 +5,7 @@ const router = express.Router();
 const { addUser, getUsers, getUser, updateUser, deleteUser } = require("../controllers/user");
 const { getProduct, addProduct, getDetailProduct, updateProduct, deleteProduct } = require("../controllers/product");
 const { getTransactions, buyProduct } = require("../controllers/transaction");
-const { register, login } = require("../controllers/auth");
+const { register, login, checkAuth } = require("../controllers/auth");
 const { auth } = require("../middlewares/auth");
 const { uploadFile } = require("../middlewares/uploadFile");
 const { getCategory, addCategory, deleteCategory, updateCategory, getDetailCategory } = require("../controllers/category");
@@ -41,5 +41,9 @@ router.post("/login", login);
 
 // Profile
 router.post("/profile", auth, addProfile)
+
+// check Auth
+
+router.get("/check-auth", auth, checkAuth)
 
 module.exports = router;

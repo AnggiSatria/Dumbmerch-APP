@@ -17,9 +17,15 @@ import { UploadOutlined } from '@ant-design/icons';
 import { Upload } from 'antd';
 import { Form } from 'react-bootstrap';
 import "../Assets/style.css"
+import { API } from '../config/api'; 
+import { useMutation } from 'react-query';
 
 
 const EditProduct = () => {
+
+    const [categories, setCategories] = useState([]); //Store all category data
+    const [categoryId, setCategoryId] = useState([]); //Save the selected category id
+    const [preview, setPreview] = useState(null); //For image preview
       
     const Navigate = useNavigate();
     const handleNavigate = () => {
@@ -33,8 +39,8 @@ const EditProduct = () => {
       document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)"
 
     const [product, setProduct] = useState({
-        img : "",
-        categoryName : "",
+        image : "",
+        name : "",
         desc : "",
         price : "",
         qty : ""
@@ -43,35 +49,46 @@ const EditProduct = () => {
     const handleOnChange = (e) => {
         setProduct({
             ...product,
-            [e.target.name] : e.target.value
+            [e.target.name] : 
+            e.target.type === 'file' ? e.target.files : e.target.value,
         })
-    }
-        
+        // create image url for preview 
+        if(e.target.type === 'file'){
+            let url = URL.createObjectURL(e.target.files[0]);
+            setPreview(url)
+        }
+    }        
 
-    const handleOnSubmit = (e) => {
-        e.preventDefault()
-        console.log(product)
-        handleNavigate()
-    }
+    const handleOnSubmit = useMutation(async(e) => {
+        try {
+            e.preventDefault()
 
-    const categories = [
-        {
-            name : "hat",
-        },
-        {
-            name : "hat",
-        },
-        {
-            name : "hat",
-        },
-        {
-            name : "hat",
-        },
-        {
-            name : "hat",
-        },
-    ]
-    
+            const config = {
+                headers : {
+                    'Content-type' : "multipart/form-data"
+                }
+            }
+
+            const formData = new FormData()
+            formData.set('image', product.image[0], product.image[0].name);
+            formData.set('name', product.name);
+            formData.set('desc', product.desc);
+            formData.set('price', product.price);
+            formData.set('qty', product.qty);
+            // formData.set('categoryId', categoryId);
+
+            const response = await API.post("/product", formData, config)
+
+            console.log(response);
+
+            // Navigate('/product')
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    })
+
 
   return (
     <div>
@@ -89,33 +106,49 @@ const EditProduct = () => {
             </div>
 
             <div className="body" style={{marginTop : '30px'}}>
-                <form action="" onSubmit={handleOnSubmit}>
+            
+            {preview && (
+            <div>
+              <img
+                src={preview}
+                style={{
+                  maxWidth: "150px",
+                  maxHeight: "150px",
+                  objectFit: "cover",
+                  marginBlock: "1rem",
+                }}
+                alt={preview}
+              />
+            </div>
+          )}
+
+                <form action="" onSubmit={(e) => handleOnSubmit.mutate(e)}>
                     <div className="file" style={{width : '96%', display : "flex", marginLeft : "1%", marginRight : "1%"}}>
                        
-                        <input name='img' placeholder='Upload' value={product.img} onChange={handleOnChange} type='file' style={{}} ></input>
+                        <input name='image' placeholder='Upload' onChange={handleOnChange} type='file' style={{}} ></input>
                                 
                     </div>
 
                     <div className="name" style={{width : '100%', marginTop : '20px'}}>
-                        <input onChange={handleOnChange} name='categoryName' value={product.categoryName} type="text" style={{width : '96%', height : '40px', marginLeft : '1%', marginRight : '1%', borderRadius : '5px'}} placeholder="category name"/>
+                        <input onChange={handleOnChange} name='name' type="text" style={{width : '96%', height : '40px', marginLeft : '1%', marginRight : '1%', borderRadius : '5px'}} placeholder="category name"/>
                     </div>
 
                     <div className="desc" style={{width : '100%', marginTop : '10px'}}>
-                        <textarea onChange={handleOnChange} name="desc" value={product.desc} id="" cols="30" rows="10" style={{width : '96%', marginLeft : '1%', marginRight : "1%", height : '40%', borderRadius : '5px', resize : 'none'}} placeholder="description"></textarea>
+                        <textarea onChange={handleOnChange} name="desc" id="" cols="30" rows="10" style={{width : '96%', marginLeft : '1%', marginRight : "1%", height : '40%', borderRadius : '5px', resize : 'none'}} placeholder="description"></textarea>
                     </div>
 
                     <div className="price" style={{width : '100%', marginTop : '10px'}}>
-                        <input onChange={handleOnChange} name='price' value={product.price} type="text" style={{width : '96%', height : '40px', marginLeft : '1%', marginRight : '1%', borderRadius : '5px'}} placeholder="price"/>
+                        <input onChange={handleOnChange} name='price' type="text" style={{width : '96%', height : '40px', marginLeft : '1%', marginRight : '1%', borderRadius : '5px'}} placeholder="price"/>
                     </div>
 
                     <div className="stock" style={{width : '100%', marginTop : '10px'}}>
-                        <input onChange={handleOnChange} name='qty' value={product.qty} type="text" style={{width : '96%', height : '40px', marginLeft : '1%', marginRight : '1%', borderRadius : '5px'}} placeholder="stock"/>
+                        <input onChange={handleOnChange} name='qty' type="text" style={{width : '96%', height : '40px', marginLeft : '1%', marginRight : '1%', borderRadius : '5px'}} placeholder="stock"/>
                     </div>
                     
                     <div className="categories" style={{width : '96%', marginTop : '10px', marginLeft : "1%", marginRight : "1%", backgroundColor : "#fff", height : "40px", padding : "5px", display : "flex", flexWrap : "wrap"}}>
                     {categories.map((value) => {
                         return <form action="">
-                            <input name='qty' value={product.qty} type="checkbox" style={{borderRadius : '5px'}}/>
+                            <input name='category' type="checkbox" style={{borderRadius : '5px'}}/>
                             <label htmlFor="" name="category" style={{fontSize : "20px", marginLeft : "10px", marginRight : "10px"}}>{value.name}</label>
                         </form>
                     })}   

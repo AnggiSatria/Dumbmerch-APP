@@ -196,14 +196,18 @@ console.log(login);
           setShow(alert);
           console.log(response.data.data);
 
-          const user = response.data.data.user
+          const user = response.data.data.user.status
 
-          dispatch({
-            type: 'LOGIN_SUCCESS',
-            payload: user
-          });
+          console.log(user);
 
-          if(user.status == 'admin'){
+          if(response?.status === 200){
+            dispatch({
+              type: 'LOGIN_SUCCESS',
+              payload: response.data.data
+            });
+          }
+
+          if(user == 'admin'){
               navigate('/product')
           } else {
               navigate('/homepage')
@@ -242,6 +246,17 @@ console.log(login);
         //      console.log('email tidak terdaftar');
         //  }
         })
+
+        const checkAuth = () => {
+          if(state.isLogin === true){
+            if(state.user.status == "customer"){
+              navigate('/')
+            }else{
+              navigate("/product")
+            }
+          }
+        }
+        checkAuth()
 
     return (
         <div>

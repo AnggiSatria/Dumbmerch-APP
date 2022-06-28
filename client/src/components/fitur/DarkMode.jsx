@@ -31,7 +31,6 @@ const DarkMode = () => {
       light ()
     }
 
-    console.log(themes)
 
     const MaterialUISwitch = styled(Switch)(({ theme }) => ({
         width: 62,

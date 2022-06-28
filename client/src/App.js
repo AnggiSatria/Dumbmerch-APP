@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, useNavigate, Navigate} from "react-router-dom";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Homepage from "./pages/homepage";
@@ -15,9 +15,59 @@ import PrivateRoute from "./components/dummy/PrivateRouteAdmin"
 import User from "./components/dummy/PrivateRouteUser"
 import InputAdornments from "./components/input";
 import HomepageAdmin from "./pages/homepageAdmin";
+import { UserContext } from "./context/userContext";
+import { useContext, useEffect } from "react";
+import { API, setAuthToken } from "../../client/src/config/api"
 
+if(localStorage.token){
+  setAuthToken(localStorage.token)
+}
 
 function App() {
+
+  // let navigate = useNavigate();
+
+  const [state, dispatch] = useContext(UserContext);
+
+  console.log(state);
+
+  // useEffect(() => {
+  //   if(state.isLogin == false){
+  //     navigate("/")
+  //   }
+  // })
+
+  const checkAuth = async () => {
+    try {
+      
+      const response = await API.get("check-auth")
+
+      if(response.status == 404){
+        return dispatch({
+          type : "AUTH_ERROR"
+        })
+      }
+
+      let payload = response.data.data.user
+
+      payload.token = localStorage.token
+
+      console.log(payload.token);
+
+      dispatch({
+        type: 'USER_SUCCESS',
+        payload
+      })
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    checkAuth()
+  },[])
+
   return (
     <Router>
       <Routes>
