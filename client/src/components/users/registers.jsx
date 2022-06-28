@@ -192,7 +192,7 @@ function Registers(){
       } catch (error) {
         const alert = (
           <Stack sx={{ width: '90%', marginTop: "10px", marginLeft : "5%", marginRight: "%"}} spacing={2}>
-              <Alert severity="error">{error.response.data.message}</Alert>
+              <Alert severity="error">{error.response.data.error.message}</Alert>
           </Stack> 
         );
         setShow(alert)

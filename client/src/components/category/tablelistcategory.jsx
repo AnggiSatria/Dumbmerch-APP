@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Table from 'react-bootstrap/Table';
 import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom"
-
+import { API } from '../../config/api';
+import { useMutation, useQuery } from 'react-query';
 
 
 const TableListCategory = () => {
 
+  let {data : datas, refetch } = useQuery('productData', async () => {
+    const response = await API.get('/categories')
+    return response.data.data;
+})
+
   const [show, setShow] = useState(false);
+  const [idDelete, setIdDelete] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -20,20 +28,34 @@ const TableListCategory = () => {
     navigate("/add-category");
   }
 
-  const routeUpdate = () => {
-    navigate("/update-category");
+  const routeUpdate = (id) => {
+    navigate("/update-category" + id);
   }
 
-  const data = [
-    {
-      no : 1,
-      categoryName : "Mouse",
-    },
-    {
-      no : 2,
-      categoryName : "Keyboard"
+  const handleDelete = (id) => {
+    setIdDelete(id);
+    handleShow();
+  }
+
+  const deleteById = useMutation(async (id) => {
+    try {
+      await API.delete(`/category/${id}`)
+      refetch();
+    } catch (error) {
+      console.log(error);
     }
-  ]
+  })
+
+  useEffect(() => {
+    if(confirmDelete){
+      handleClose();
+      deleteById.mutate(idDelete);
+      setConfirmDelete(null)
+    }
+   }, [confirmDelete])
+  
+
+  console.log(datas);
 
   return (
     <div>
@@ -91,8 +113,8 @@ const TableListCategory = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((value)=> {
-                  return <tr>
+                {datas?.map((value)=> (
+                   <tr>
                   <td>{value.no}</td>
                   <td>{value.categoryName}</td>
                   <td style={{display : 'flex'}}>
@@ -104,7 +126,7 @@ const TableListCategory = () => {
                     </div>
                   </td>
                 </tr>
-                })}
+                ))}
               </tbody>
             </Table>
           </div>

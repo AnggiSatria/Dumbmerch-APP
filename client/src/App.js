@@ -104,9 +104,9 @@ function App() {
           <Route path="/category" element={<Category />}/>
           <Route path="/product" element={<Product />}/>
           <Route path="/add-category" element={<AddCategory />}/>
-          <Route path="/update-category" element={<UpdateCategory />}/>
+          <Route path="/update-category/:id" element={<UpdateCategory />}/>
           <Route path="/add-product" element={<AddProduct />}/>
-          <Route path="/update-product" element={<UpdateProduct />}/>
+          <Route path="/update-product/:id" element={<UpdateProduct />}/>
           <Route path="/complain-admin" element={<ComplainAdmin />}/>
         </Route>
       </Routes>

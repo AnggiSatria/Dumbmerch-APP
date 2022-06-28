@@ -7,21 +7,22 @@ exports.addCategory = async (req, res) => {
         const data = req.body;
         const newCategory = await category.create(data);
       
-        let productData = await category.findOne({
-          where: {
-            id: newCategory.id,
-          },
-          attributes: {
-            exclude: ['createdAt', 'updatedAt'],
-          },
-        });
+        // let productData = await category.findOne({
+        //   where: {
+        //     id: newCategory.id,
+        //     name : newCategory.name
+        //   },
+        //   attributes: {
+        //     exclude: ['createdAt', 'updatedAt'],
+        //   },
+        // });
       
         res.send({
           status: 'success',
           data:{
             category:{
-              id: productData.id,
-              name: productData.name,
+              id: newCategory.id,
+              name: newCategory.name,
             }
           }
         });

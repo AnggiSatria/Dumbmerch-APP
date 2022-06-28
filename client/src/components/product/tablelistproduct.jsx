@@ -4,12 +4,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Button, Card, Modal } from 'react-bootstrap';
 import { Alert } from '@mui/material';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { API } from '../../config/api';
+import { useEffect } from 'react';
 
 const TableListProduct = () => {
 
+  let {data : list, refetch } = useQuery('productData', async () => {
+    const response = await API.get('/products')
+    return response.data.data;
+})
+
   const [show, setShow] = useState(false);
+  const [idDelete, setIdDelete] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -20,14 +28,31 @@ const TableListProduct = () => {
     Navigate("/add-product")
   }
 
-  const handleEdit = () => {
-    Navigate("/update-product")
+  const handleEdit = (id) => {
+    Navigate(`/update-product/${id}`)
   }
 
-  let {data : list } = useQuery('productData', async () => {
-    const response = await API.get('/products')
-    return response.data.data;
-})
+  const handleDelete = (id) => {
+    setIdDelete(id);
+    handleShow();
+  }
+
+  const deleteById = useMutation(async (id) => {
+    try {
+      await API.delete(`/product/${id}`)
+      refetch();
+    } catch (error) {
+      console.log(error);
+    }
+  })
+
+ useEffect(() => {
+  if(confirmDelete){
+    handleClose();
+    deleteById.mutate(idDelete);
+    setConfirmDelete(null)
+  }
+ }, [confirmDelete])
 
 
 // const list = [
@@ -109,10 +134,10 @@ const TableListProduct = () => {
                 <td>{value.qty}</td>
                 <td style={{display : 'flex'}}>
                   <div className="button1">
-                    <Button variant="success" onClick={handleEdit} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
+                    <Button variant="success" onClick={() => handleEdit(value.id)} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
                   </div>
                   <div className="button2" style={{marginLeft : '10px'}}>
-                    <Button variant="danger" onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
+                    <Button variant="danger" onClick={() => handleDelete(value.id)} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>
                   </div>
                 </td>
             </tr>
