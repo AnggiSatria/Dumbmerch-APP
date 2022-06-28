@@ -14,7 +14,6 @@ import ComplainAdmin from "./pages/complainAdmin";
 import PrivateRoute from "./components/dummy/PrivateRouteAdmin"
 import User from "./components/dummy/PrivateRouteUser"
 import InputAdornments from "./components/input";
-import HomepageAdmin from "./pages/homepageAdmin";
 import { UserContext } from "./context/userContext";
 import { useContext, useEffect } from "react";
 import { API, setAuthToken } from "../../client/src/config/api"
@@ -94,7 +93,7 @@ function App() {
 
         <Route path="/" element={<User />}>
           <Route path="/homepage" element={<Homepage />}/>
-          <Route path="/detail-product" element={<DetailProduct />}/>
+          <Route path="/product/:id" element={<DetailProduct />}/>
           <Route path="/profile" element={<Profile />}/>
           <Route path="/complain" element={<Complain />}/>
         </Route>
@@ -102,7 +101,6 @@ function App() {
       {/* only for admin */}
 
         <Route path="/" element={<PrivateRoute/>}>
-          <Route path="/homepage-admin" element={<HomepageAdmin/>}/>
           <Route path="/category" element={<Category />}/>
           <Route path="/product" element={<Product />}/>
           <Route path="/add-category" element={<AddCategory />}/>

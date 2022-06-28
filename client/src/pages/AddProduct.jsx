@@ -178,12 +178,13 @@ const AddProduct = () => {
                 >
                   Category
                 </div>
-                {categories.map((item, index) => (
+                {categories?.map((item, index) => (
                   <label className="checkbox-inline me-4" key={index}>
                     <input
                       type="checkbox"
                       value={item.id}
                       onClick={handleChangeCategoryId}
+                      style={{backgroundColor : "#fff"}}
                     />{' '}
                     {item.name}
                   </label>

@@ -23,7 +23,10 @@ function Homepage(){
     //     const response = await API.get('/products')
     //     console.log(response);
     // })
-    
+  
+
+ 
+
     return (
         <div>
             <nav className="Navbar" style={{height : '7vh'}}>
@@ -35,7 +38,9 @@ function Homepage(){
             </div>
 
             <div className="Cards" style={{marginTop : '50px', minHeight : "93vh"}}>      
-                <Cards/>
+                {/* {products?.map((item, index) => ( */}
+                    <Cards/>
+                {/* ))}        */}
             </div>
 
         </div>

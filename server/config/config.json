@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "ApiDumbmerch",
+    "password": "",
+    "database": "apidumbmerch",
     "host": "localhost",
     "dialect": "mysql"
   },

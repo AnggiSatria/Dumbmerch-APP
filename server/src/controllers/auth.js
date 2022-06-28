@@ -1,189 +1,205 @@
-const { user, profile } = require("../../models");
+const { user } = require('../../models');
+const Joi = require('joi');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-const Joi = require("joi");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+/* Bagian Registrasi */
 
-// ============= REGISTER =============
-exports.register = async (req, res) => {
-  const schema = Joi.object({
-    name: Joi.string().min(2).required(),
-    email: Joi.string().email().min(3).required(),
-    password: Joi.string().min(6).required(),
-  });
+// Tambah user reg
+exports.regUser = async (req, res) => {
+    try {
 
-  const { error } = schema.validate(req.body);
+        let data = req.body;
 
-  if (error) {
-    return res.status(400).send({
-      error: {
-        message: error.details[0].message,
-      },
-    });
-  }
+        if(!data.status){
+            data = {
+                ...data,
+                status: 'customer',
+            };
+        };
 
-  try {
-    // Cek Email
-    const email = await user.findOne({
-      where: {
-        email: req.body.email
-      }
-    })
+        const schema = Joi.object({
+            name: Joi.string().required(),
+            email: Joi.string().email().required(),
+            password: Joi.string().required().min(8),
+            status: Joi.string()
+        });
 
-    if (email) {
-      return res.status(401).send({
-        status: "failed",
-        message: "Email telah terdaftar",
-      });
-    }
+        const { error } = schema.validate(data);
 
-    // Hashed Password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        if(error){
+            return res.status(400).send({
+                error: {
+                    message: error.details[0].message
+                }
+            });
+        };
 
-    // Tambah user
-    const newUser = await user.create({
-      name: req.body.name,
-      email: req.body.email,
-      password: hashedPassword,
-      status: "customer"
-    });
+        const emailAlready = await user.findOne({
+            where: {
+                email: data.email,
+            }
+        });
 
-    // Json Web Token
-    const token = jwt.sign({ id: newUser.id }, process.env.SECRET_KEY);
-
-    res.status(201).send({
-      status: "Success",
-      message: "Register success",
-      data: {
-        name: newUser.name,
-        email: newUser.email,
-        token,
-      },
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(401).send({
-      status: "Failed",
-      message: "Server Error",
-    });
-  }
-};
-
-// ============== LOGIN ==============
-exports.login = async (req, res) => {
-  //Validation
-  const schema = Joi.object({
-    email: Joi.string().min(5).required(),
-    password: Joi.string().min(3).required(),
-  });
-
-  const { error } = schema.validate(req.body);
-
-  if (error) {
-    res.status(400).send({
-      message: error.details[0].message,
-    });
-  }
-
-  try {
-    const userExist = await user.findOne({
-      where: {
-        email: req.body.email,
-      },
-      include: [
-        {
-          model: profile,
-          as: "profile",
-          attributes: {
-            exclude: ["idUser", "createdAt", "updatedAt"],
-          }
+        if(emailAlready){
+            return res.send({
+                error: {
+                    message: `Account already existed`
+                }
+            });
         }
-      ],
-      attributes: {
-        exclude: ["createdAt", "updatedAt"],
-      },
-    });
 
-    // Check Email
-    if (!userExist) {
-      return res.status(400).send({
-        status: "failed",
-        message: "Email belum terdaftar",
-      });
+        const hashedPassword = await bcrypt.hash(data.password, 10)
+
+       const newUser =  await user.create({
+            name: data.name,
+            email: data.email,
+            password: hashedPassword,
+            status: data.status
+        });
+
+        const payload = { 
+            id: newUser.id,
+            name: newUser.name,
+            email: newUser.email,
+            status: newUser.status 
+        };
+
+        const token = jwt.sign(payload, process.env.SECRET_KEY);
+
+        res.status(201).send({
+            status: 'Success',
+            data: {
+                user: {
+                    name: newUser.name,
+                    email: newUser.email,
+                    token: token
+                }
+            },
+        });
+        
+    } catch (error) {
+        console.log(error)
+        res.send({
+            status: 'Failed',
+            message: 'Server Error'
+        });
     }
-
-    // Check Password
-    const isValid = await bcrypt.compare(req.body.password, userExist.password);
-    if (!isValid) {
-      return res.status(400).send({
-        status: "failed",
-        message: "Password Salah",
-      });
-    }
-
-    // Json Web Token
-    const token = jwt.sign({ id: userExist.id }, process.env.SECRET_KEY);
-
-    res.status(200).send({
-      status: "Success",
-      message: "Berhasil Login",
-      data: {
-        user: {
-          name: userExist.name,
-          email: userExist.email,
-          status: userExist.status,
-          token,
-          profile: userExist.profile,
-        },
-      },
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(401).send({
-      status: "Failed",
-      message: "Server Error",
-    });
-  }
 };
 
-//cek Auth Token 
+/* Bagian Login */
+
+//Login checked
+exports.logUser = async (req, res) => {
+    try {
+
+        const data = req.body;
+
+        const schema = Joi.object({
+            email: Joi.string().email().required(),
+            password: Joi.string().required(),
+        });
+
+        const { error } = schema.validate(data);
+
+        if(error){
+            return res.status(400).send({
+                error: {
+                    message: error.details[0].message
+                }
+            });
+        };
+
+        const accountExist = await user.findOne({
+            where: {
+                email: data.email,
+            }
+        });
+
+        if(!accountExist){
+            return res.status(400).send({
+                error: {
+                    message: `Email or Password is not Matching`
+                }
+            });
+        };
+
+        const isValid = await bcrypt.compare(data.password, accountExist.password);
+
+        if(!isValid) {
+            return res.status(400).send({
+                error: {
+                    message: `Email or Password is not Matching`
+                }
+            });
+        };
+
+        const payload = { 
+            id: accountExist.id,
+            name: accountExist.name,
+            email: accountExist.email,
+            status: accountExist.status 
+        };
+
+        const token = jwt.sign(payload, process.env.SECRET_KEY);
+
+        res.send({
+            status: 'Success',
+            data: {
+                user: {
+                    id: accountExist.id,
+                    name: accountExist.name,
+                    email: accountExist.email,
+                    status: accountExist.status,
+                    token
+                }
+            },
+        });
+        
+    } catch (error) {
+        console.log(error)
+        res.send({
+            status: 'Failed',
+            message: 'Server Error'
+        });
+    }
+};
 
 exports.checkAuth = async (req, res) => {
-  try {
-    const id = req.user.id
-
-    const dataUser = await user.findOne({
-      where: {
-        id
-      },
-      attributes: {
-        exclude: ["createdAt", "updatedAt", "password"]
+    try {
+      const id = req.user.id;
+  
+      const dataUser = await user.findOne({
+        where: {
+          id,
+        },
+        attributes: {
+          exclude: ["createdAt", "updatedAt", "password"],
+        },
+      });
+  
+      if (!dataUser) {
+        return res.status(404).send({
+          status: "failed",
+        });
       }
-    })
-
-    if(!dataUser){
-      return res.status(404).send({
-        status: "Failed"
-      })
+  
+      res.send({
+        status: "success...",
+        data: {
+          user: {
+            id: dataUser.id,
+            name: dataUser.name,
+            email: dataUser.email,
+            status: dataUser.status,
+          },
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      res.status({
+        status: "failed",
+        message: "Server Error",
+      });
     }
-
-    res.status(200).send({
-      status: "success",
-      data: {
-        user:{
-          id: dataUser.id,
-          name: dataUser.name,
-          email: dataUser.email,
-          status: dataUser.status
-        }
-      }
-    })
-  } catch (error) {
-    console.log(error);
-    res.send({
-      status: "Failed",
-      message: "Server Error",
-    });
-  }
-};
+  };

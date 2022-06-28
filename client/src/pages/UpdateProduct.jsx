@@ -121,7 +121,7 @@ const UpdateProduct = () => {
         );
         console.log(response.data);
   
-        navigate('/product-admin');
+        navigate('/product');
       } catch (error) {
         console.log(error);
       }
@@ -197,7 +197,7 @@ const UpdateProduct = () => {
                     </div>
                     
                     <div className="categories" style={{width : '96%', marginTop : '10px', marginLeft : "1%", marginRight : "1%", backgroundColor : "#fff", height : "40px", padding : "5px", display : "flex", flexWrap : "wrap"}}>
-                    {categories.map((value) => {
+                    {categories?.map((value) => {
                         return <form action="">
                             <input name='category' type="checkbox" categoryId={categoryId}
                         value={value?.id}

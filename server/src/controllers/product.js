@@ -1,23 +1,203 @@
-const { product, user, category, productCategory } = require("../../models");
+const {
+    product,
+    user, 
+    category,
+    categoryproduct
+} = require('../../models');
 
-// ============== GET PRODUCTS ===============
+
+//Menambahkan Produk
+exports.addProduct = async (req, res) => {
+    try {
+
+      let { idCategory } = req.body;
+      if(idCategory){
+        idCategory.split(",");
+      } 
+  
+      const data = {
+        name: req.body.name,
+        desc: req.body.desc,
+        price: req.body.price,
+        image: req.file.filename,
+        qty: req.body.qty,
+        idUser: req.user.id,
+      };
+  
+      console.log(data);
+
+      let newProduct = await product.create(data);
+  
+      const productCategoryData = idCategory.map((item) => {
+        return { idProduct: newProduct.id, idCategory: parseInt(item) };
+      });
+  
+      await categoryproduct.bulkCreate(productCategoryData);
+  
+      let productData = await product.findOne({
+        where: {
+          id: newProduct.id,
+        },
+        include: [
+          {
+            model: user,
+            as: "user",
+            attributes: {
+              exclude: ["createdAt", "updatedAt", "password"],
+            },
+          },
+          {
+            model: category,
+            as: "categories",
+            through: {
+              model: categoryproduct,
+              as: "bridge",
+              attributes: [],
+            },
+            attributes: {
+              exclude: ["createdAt", "updatedAt"],
+            },
+          },
+        ],
+        attributes: {
+          exclude: ["createdAt", "updatedAt", "idUser"],
+        },
+      });
+      productData = JSON.parse(JSON.stringify(productData));
+  
+      res.send({
+        status: "success...",
+        data: {
+          ...productData,
+          image: process.env.PATH_FILE + productData.image,
+        },
+      });
+
+      /* const data = req.body;
+  
+      data.image = req.file.filename;
+      data.idUser = req.user.id;
+  
+      const newProduct = await product.create(data);
+  
+      let productdata = await product.findOne({
+        where: {
+          id: newProduct.id,
+        },
+        include: [
+          {
+            model: user,
+            as: 'user',
+            attributes: {
+              exclude: ['createdAt', 'updatedAt', 'password'],
+            },
+          },
+        ],
+        attributes: {
+          exclude: ['createdAt', 'updatedAt', 'idUser'],
+        },
+      });
+  
+      res.send({
+        status: 'success',
+        data:{
+            productdata: {
+                id: productdata.id,
+                image: productdata.image,
+                title: productdata.name, //Ini keynya berubah jadi title
+                desc: productdata.desc,
+                price: productdata.price,
+                qty: productdata.qty,
+                user: productdata.user
+            }
+        },
+      }); */
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        status: 'failed',
+        message: 'Server Error',
+      });
+    }
+};
+
+//Fetch Product 
+exports.getProducts = async (req, res) => {
+    try {
+
+      let data = await product.findAll({
+        include: [
+          {
+            model: user,
+            as: "user",
+            attributes: {
+              exclude: ["createdAt", "updatedAt", "password"],
+            },
+          },
+          {
+            model: category,
+            as: "categories",
+            through: {
+              model: categoryproduct,
+              as: "bridge",
+              attributes: [],
+            },
+            attributes: {
+              exclude: ["createdAt", "updatedAt"],
+            },
+          },
+        ],
+        attributes: {
+          exclude: ["createdAt", "updatedAt", "idUser"],
+        },
+      });
+
+      data = JSON.parse(JSON.stringify(data));
+
+        data = data.map((item) => {
+          item.image = process.env.PATH_FILE + item.image;
+          return item;
+        });
+    
+        res.send({
+          status: 'success',
+          data:{
+              products: data
+          },
+        });
+      } catch (error) {
+        console.log(error);
+        res.send({
+          status: 'failed',
+          message: 'Server Error',
+        });
+      }
+};
+
+//Fetch Detail Product
 exports.getProduct = async (req, res) => {
-  try {
-    let products = await product.findAll({
+    try {
+
+      const { id } = req.params;
+    let data = await product.findOne({
+      where: {
+        id,
+      },
       include: [
         {
           model: user,
-          as: "seller",
+          as: "user",
           attributes: {
-            exclude: ["password", "createdAt", "updatedAt"],
+            exclude: ["createdAt", "updatedAt", "password"],
           },
         },
         {
           model: category,
           as: "categories",
           through: {
-            modul: productCategory,
+            model: categoryproduct,
             as: "bridge",
+            attributes: [],
           },
           attributes: {
             exclude: ["createdAt", "updatedAt"],
@@ -25,184 +205,161 @@ exports.getProduct = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: ["idUser","createdAt", "updatedAt"],
+        exclude: ["createdAt", "updatedAt", "idUser"],
       },
     });
 
-    products = JSON.parse(JSON.stringify(products))
+    data = JSON.parse(JSON.stringify(data));
 
-    // Map
-    products = products.map((item)=>{
-      return{
-        ...item,
-        image: process.env.FILE_PATH + item.image
-      }
-    })
-
-    res.status(200).send({
-      status: "Success",
-      message: "Get data all product success",
-      data: {
-        products: products,
-      },
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(404).send({
-      status: "Get data Failed",
-      message: "Server Error",
-    });
-  }
-};
-
-// ============== ADD PRODUCTS ===============
-exports.addProduct = async (req, res) => {
-  try {
-    const newProduct = req.body;
-    let products = await product.create({
-      ...newProduct,
-      image: req.file.filename,
-      idUser: req.user.id, // diambil dari token
-    });
-
-    products = JSON.parse(JSON.stringify(products));
-
-    products = {
-      ...products,
-      image: process.env.FILE_PATH + products.image,
+    data = {
+      ...data,
+      image: process.env.PATH_FILE + data.image,
     };
 
-    res.status(200).send({
-      status: "Success",
-      message: "Add Product Success",
-      data: products,
+    res.send({
+      status: "success...",
+      data,
     });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      status: "Add Product Failed",
-      message: "Server Error",
-    });
-  }
+
+        /* const id = req.params.id;
+
+        let data = await product.findAll({
+            attributes: {
+              exclude: ['createdAt', 'updatedAt', 'idUser'],
+            },
+            where: {
+                id,
+              }
+          });
+    
+        data = data.map((item) => {
+          item.image = process.env.PATH_FILE + item.image;
+          return item;
+        });
+    
+        res.send({
+          status: 'success',
+          data:{
+              products: data
+          },
+        }); */
+      } catch (error) {
+        console.log(error);
+        res.send({
+          status: 'failed',
+          message: 'Server Error',
+        });
+      }
 };
 
-// ============ GET DETAIL PRODUCT ========
-exports.getDetailProduct = async (req, res) => {
-  const { id } = req.params;
+//Update Product
+exports.updateProduct = async (req, res) => {
+    try {
 
-  try {
-    let products = await product.findOne({
-      where: { id },
-      include: [
-        {
-          model: user,
-          as: "seller",
-          attributes: {
-            exclude: ["password", "createdAt", "updatedAt"],
-          },
-        },
-        {
-          model: category,
-          as: "categories",
-          through: {
-            model: productCategory,
-            as: "bridge",
-          },
-          attributes: {
-            exclude: ["idUser", "createdAt", "updatedAt"],
-          },
-        },
-      ],
-      attributes: {
-        exclude: ["idUser", "createdAt", "updatedAt"],
+      const { id } = req.params;
+    let { categoryId } = req.body;
+    categoryId = await categoryId.split(",");
+
+    const data = {
+      name: req?.body?.name,
+      desc: req?.body.desc,
+      price: req?.body?.price,
+      image: req?.file?.filename,
+      qty: req?.body?.qty,
+      idUser: req?.user?.id,
+    };
+
+    await categoryproduct.destroy({
+      where: {
+        idProduct: id,
       },
     });
 
-    products = JSON.parse(JSON.stringify(products));
-
-    products = {
-      ...products,
-      image:  process.env.FILE_PATH + products.image
+    let productCategoryData = [];
+    if (categoryId != 0 && categoryId[0] != "") {
+      productCategoryData = categoryId.map((item) => {
+        return { idProduct: parseInt(id), idCategory: parseInt(item) };
+      });
     }
 
-    res.status(200).send({
-      status: "Success",
-      message: `Get detail product: ${id} success`,
-      data: {
-        products: products,
+    if (productCategoryData.length != 0) {
+      await categoryproduct.bulkCreate(productCategoryData);
+    }
+
+    await product.update(data, {
+      where: {
+        id,
       },
     });
-  } catch (error) {
-    console.log(error);
-    res.status(404).send({
-      status: "Get detail data failed",
-      message: "Server Error",
-    });
-  }
-};
 
-// ============ UPDATED PRODUCT ========
-exports.updateProduct = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const data = req.body;
-    console.log(data)
-    let updateProduct = await product.update(
-      {
-        ...data,
-        image: req.file.filename,
-        idUser: req.user.id,
-      },
-      { where: { id } }
-    );
-
-    updateProduct = JSON.parse(JSON.stringify(data));
-
-    updateProduct = {
-      ...updateProduct,
-      image: process.env.FILE_PATH + req.file.filename,
-    };
-
-    res.status(200).send({
-      status: "Success",
-      message: `Update product at id: ${id} success`,
+    res.send({
+      status: "success",
       data: {
-        products: updateProduct,
+        id,
+        data,
+        productCategoryData,
+        image: req?.file?.filename,
       },
     });
-  } catch (error) {
-    console.log(error);
-    res.status(404).send({
-      status: "Updated product failed",
-      message: "Server Error",
-    });
-  }
-};
+        /* const id = req.params.id;
+        const data = req.body;
+        data.image = req.file.filename;
 
-// ============ DELETE PRODUCT ===========
-exports.deleteProduct = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const products = await product.destroy({
-      where: { id },
-    });
-
-    res.status(200).send({
-      status: "Success",
-      message: `Delete product: ${id} success`,
-      data: {
-        products: {
-          id: { id }
+        await product.update(data, {
+          where: {
+            id,
+          },
+        });
+    
+        res.send({
+          status: 'success',
+          data:{
+            products: {
+                id: data.id,
+                image: data.image,
+                title: data.name, //Ini keynya berubah jadi title
+                desc: data.desc,
+                price: data.price,
+                qty: data.qty,
+            }
         },
-      },
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(404).send({
-      status: "Delete product failed",
-      message: "Server Error",
-    });
-  }
+        }); */
+      } catch (error) {
+        console.log(error);
+        res.send({
+          status: 'failed',
+          message: 'Server Error',
+        });
+      }
 };
 
+exports.deleteProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+    
+        await product.destroy({
+          where: { 
+            id,
+          },
+        }),
+
+        await categoryproduct.destroy({
+          where: {
+            idProduct: id,
+          },
+        });
+    
+        res.send({
+          status: "success",
+          data: {
+              id: id
+          },
+        });
+      } catch (error) {
+        console.log(error);
+        res.send({
+          status: "failed",
+          message: "server error",
+        });
+      }
+};

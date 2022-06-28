@@ -24,17 +24,22 @@ const TableListProduct = () => {
     Navigate("/update-product")
   }
 
-  let {data : cards } = useQuery('productData', async () => {
+  let {data : list } = useQuery('productData', async () => {
     const response = await API.get('/products')
     return response.data.data;
 })
 
-  const list = [
-    {
-      name : "dumbmerch"
-    }
-  ]
 
+// const list = [
+//   {
+//     no : '1',
+//     productName : "1",
+//     productDesc : '1',
+//     photo : '1',
+//     price : '1',
+//     qty : '1'
+//   }
+// ]
 
   return (
     <div>
@@ -94,8 +99,8 @@ const TableListProduct = () => {
                 </tr>
               </thead>
               <tbody>
-              {list.map((value) => {
-                return <tr>
+              {list?.map((value) => (
+               <tr>
                 <td>{value.no}</td>
                 <td><Link to="" style={{color : 'white'}}>{value.photo}</Link></td>
                 <td>{value.productName}</td>
@@ -111,7 +116,7 @@ const TableListProduct = () => {
                   </div>
                 </td>
             </tr>
-              })}
+              ))}
               </tbody>
             </Table>
         </div>
