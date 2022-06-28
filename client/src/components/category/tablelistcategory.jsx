@@ -16,8 +16,12 @@ const TableListCategory = () => {
 
   const navigate = useNavigate();
 
-  const route = () => {
-    navigate("/edit-category");
+  const routeAdd = () => {
+    navigate("/add-category");
+  }
+
+  const routeUpdate = () => {
+    navigate("/update-category");
   }
 
   const data = [
@@ -73,7 +77,7 @@ const TableListCategory = () => {
             </div>
 
             <div className="buttonAdd" style={{display : "flex", justifyContent : "flex-end", flex : "50%"}}>
-              <Button onClick={route} variant='danger' style={{width: "100px", height : "40px"}}>Add</Button>
+              <Button onClick={routeAdd} variant='danger' style={{width: "100px", height : "40px"}}>Add</Button>
             </div>
           </div>
 
@@ -93,7 +97,7 @@ const TableListCategory = () => {
                   <td>{value.categoryName}</td>
                   <td style={{display : 'flex'}}>
                     <div className="button1">
-                      <Button variant='success' onClick={route} style={{borderRadius : '7px', color : 'white', textAlign : "center", width : "100px"}}>Edit</Button>
+                      <Button variant='success' onClick={routeUpdate} style={{borderRadius : '7px', color : 'white', textAlign : "center", width : "100px"}}>Edit</Button>
                     </div>
                     <div className="button2" style={{marginLeft : '10px'}}>
                       <Button variant="danger" onClick={handleShow} style={{borderRadius : '7px', color : 'white', textAlign: "center", width : "100px"}}>Delete</Button>

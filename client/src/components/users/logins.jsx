@@ -136,7 +136,6 @@ function Logins(){
       [e.target.name] : e.target.value
     })
   }
-console.log(login);
 
     const [values, setValues] = React.useState({
         amount: '',
@@ -177,7 +176,6 @@ console.log(login);
     const [show, setShow] = React.useState(null);
 
     const dataUser = Users
-    console.log(dataUser);
 
     const handleOnSubmit = useMutation(async(e) => { //handlesubmit gunanya ketika submit dia membawa state yang ada di dalamnya
         try {
@@ -208,9 +206,9 @@ console.log(login);
           }
 
           if(user == 'admin'){
-              navigate('/product')
+              admin()
           } else {
-              navigate('/homepage')
+              route()
           } 
 
         } catch (error) {

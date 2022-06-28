@@ -3,30 +3,19 @@ import Mouse from "../../Assets/mouses.jpg"
 import Keyboard from "../../Assets/Keyboard.jpg"
 import { useState } from "react"
 import { Link } from 'react-router-dom'
+import { useQuery } from 'react-query'
+import { API } from '../../config/api'
 
 const Card = (props) => {
 
+   let {data : card } = useQuery('productData', async () => {
+    const response = await API.get('/products')
+    return response.data.data;
+})
 
-  const cards = [
-    {
-      img : Mouse,
-      category : "mouse",
-      price : "Rp.200.000",
-      stock : 600
-    },
-    {
-      img : Keyboard,
-      category : "keyboard",
-      price : "Rp.400.000",
-      stock : 300
-    },
-    {
-      img : `https://i1.wp.com/mecrochet.com/wp-content/uploads/quick-large-crochet-doll-patterns-to-choose-molly-doll-crochet-pattern-amigurumi-today.jpg?fit=700%2C1307`,
-      category : "doll",
-      price : "Rp.100.000",
-      stock : 800
-    }
-  ]
+
+ const cards = []
+
 
   return (
     <div>

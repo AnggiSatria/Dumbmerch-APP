@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route, useNavigate, Navigate} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Homepage from "./pages/homepage";
@@ -8,8 +8,8 @@ import Category from "./pages/category";
 import Product from "./pages/product";
 import Complain from "./pages/complainUser";
 import Error from "./pages/Error";
-import EditCategory from "./pages/EditCategory";
-import EditProduct from "./pages/EditProduct";
+import AddCategory from "./pages/AddCategory";
+import AddProduct from "./pages/AddProduct";
 import ComplainAdmin from "./pages/complainAdmin";
 import PrivateRoute from "./components/dummy/PrivateRouteAdmin"
 import User from "./components/dummy/PrivateRouteUser"
@@ -18,6 +18,8 @@ import HomepageAdmin from "./pages/homepageAdmin";
 import { UserContext } from "./context/userContext";
 import { useContext, useEffect } from "react";
 import { API, setAuthToken } from "../../client/src/config/api"
+import UpdateProduct from "./pages/UpdateProduct";
+import UpdateCategory from "./pages/UpdateCategory";
 
 if(localStorage.token){
   setAuthToken(localStorage.token)
@@ -25,22 +27,33 @@ if(localStorage.token){
 
 function App() {
 
-  // let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [state, dispatch] = useContext(UserContext);
 
-  console.log(state);
+  useEffect(() => {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
 
-  // useEffect(() => {
-  //   if(state.isLogin == false){
-  //     navigate("/")
-  //   }
-  // })
+    // Redirect Auth
+    if (state.isLogin === false) {
+      navigate('/');
+    } else {
+      if (state.user.status === 'admin') {
+        navigate('/product');
+      } else if (state.user.status === 'customer') {
+        navigate('/homepage');
+      }
+    }
+  }, [state]);
+
+  console.log(state);
 
   const checkAuth = async () => {
     try {
       
-      const response = await API.get("check-auth")
+      const response = await API.get("/check-auth")
 
       if(response.status == 404){
         return dispatch({
@@ -65,11 +78,12 @@ function App() {
   }
 
   useEffect(() => {
-    checkAuth()
-  },[])
+    if (localStorage.token) {
+      checkAuth();
+    }
+  }, []);
 
   return (
-    <Router>
       <Routes>
         <Route path="/" element={<Login />}/>
         <Route path="/register" element={<Register />}/> 
@@ -91,12 +105,13 @@ function App() {
           <Route path="/homepage-admin" element={<HomepageAdmin/>}/>
           <Route path="/category" element={<Category />}/>
           <Route path="/product" element={<Product />}/>
-          <Route path="/edit-category" element={<EditCategory />}/>
-          <Route path="/edit-product" element={<EditProduct />}/>
+          <Route path="/add-category" element={<AddCategory />}/>
+          <Route path="/update-category" element={<UpdateCategory />}/>
+          <Route path="/add-product" element={<AddProduct />}/>
+          <Route path="/update-product" element={<UpdateProduct />}/>
           <Route path="/complain-admin" element={<ComplainAdmin />}/>
         </Route>
       </Routes>
-    </Router>
   );
 }
 

@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Button, Card, Modal } from 'react-bootstrap';
 import { Alert } from '@mui/material';
+import { useQuery } from 'react-query';
+import { API } from '../../config/api';
 
 const TableListProduct = () => {
 
@@ -14,50 +16,23 @@ const TableListProduct = () => {
 
   const Navigate = useNavigate();
 
-  const handleNavigate = () => {
-    Navigate("/edit-product")
+  const handleAdd = () => {
+    Navigate("/add-product")
   }
+
+  const handleEdit = () => {
+    Navigate("/update-product")
+  }
+
+  let {data : cards } = useQuery('productData', async () => {
+    const response = await API.get('/products')
+    return response.data.data;
+})
 
   const list = [
     {
-      no : 1,
-      photo : "",
-      productName : "Mouse",
-      productDesc : "Mouses",
-      price : "Rp.500.000",
-      qty : 40,
-    },
-    {
-      no : 2,
-      photo : "Keyboard.jpg",
-      productName : "Keyboard",
-      productDesc : "Logitech",
-      price : "Rp.300.000",
-      qty : 50,
-    },
-    {
-      no : 3,
-      photo : "Doll.jpg",
-      productName : "Doll",
-      productDesc : "Aksesoris",
-      price : "Rp.100.000",
-      qty : 49,
-    },
-    {
-      no : 4,
-      photo : "Bag.jpg",
-      productName : "Bag",
-      productDesc : "Tas Laptop Anti Air",
-      price : "Rp.300.000",
-    },
-    {
-      no : 5,
-      photo : "",
-      productName : "Stationay",
-      productDesc : "",
-      price : "",
-      qty : "",
-    },
+      name : "dumbmerch"
+    }
   ]
 
 
@@ -101,7 +76,7 @@ const TableListProduct = () => {
             </div>
 
             <div className="buttonAdd" style={{display : "flex", justifyContent : "flex-end", flex : "50%"}}>
-              <Button onClick={handleNavigate} variant='danger' style={{width: "100px", height : "40px"}}>Add</Button>
+              <Button onClick={handleAdd} variant='danger' style={{width: "100px", height : "40px"}}>Add</Button>
             </div>
           </div>
         
@@ -129,7 +104,7 @@ const TableListProduct = () => {
                 <td>{value.qty}</td>
                 <td style={{display : 'flex'}}>
                   <div className="button1">
-                    <Button variant="success" onClick={handleNavigate} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
+                    <Button variant="success" onClick={handleEdit} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Edit</Button>
                   </div>
                   <div className="button2" style={{marginLeft : '10px'}}>
                     <Button variant="danger" onClick={handleShow} style={{width : '100px', borderRadius : '7px', color : 'white'}}>Delete</Button>

@@ -2,7 +2,7 @@ import NavbarAdmin from '../components/navbar/NavbarAdmin';
 import All from '../Assets/All.module.css';
 import { Button } from 'react-bootstrap';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
@@ -11,31 +11,46 @@ import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import DarkMode from '../components/fitur/DarkMode';
+import { API } from '../config/api';
+import { useMutation, useQuery } from 'react-query';
 
-const EditCategory = () => {
+const UpdateCategory = () => {
 
-    const [category, setCategory] = useState({
-        categories : "", 
-    })
+    let navigate = useNavigate();
+  const { id } = useParams();
+  const [category, setCategory] = useState({ name: '' });
 
-    const handleOnChange = (e) => {
-        setCategory({
-            ...category,
-            [e.target.name] : e.target.value
-        })
+  useQuery('categoryCache', async () => {
+    const response = await API.get('/category/' + id);
+    setCategory({ name: response.data.data.name });
+  });
+
+  const handleChange = (e) => {
+    setCategory({
+      ...category,
+      name: e.target.value,
+    });
+  };
+
+  const handleSubmit = useMutation(async (e) => {
+    try {
+      e.preventDefault();
+
+      const config = {
+        headers: {
+          'Content-type': 'application/json',
+        },
+      };
+
+      const body = JSON.stringify(category);
+
+      const response = await API.patch('/category/' + id, body, config);
+
+      navigate('/category');
+    } catch (error) {
+      console.log(error);
     }
-
-    const handleOnSubmit = (e) => {
-        e.preventDefault()
-        console.log(category)
-        handleNavigate()
-    }
-    
-
-    const Navigate = useNavigate();
-    const handleNavigate = () => {
-        Navigate("/category");
-    }
+  });
 
       document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)"
     
@@ -56,9 +71,9 @@ const EditCategory = () => {
                 <h4 style={{color : 'white', marginLeft : '30px'}}>Edit Category</h4>
             </div>
 
-            <form action="" style={{marginTop : '30px', display : 'flex', flexDirection: 'column'}} onSubmit={handleOnSubmit}>
+            <form action="" style={{marginTop : '30px', display : 'flex', flexDirection: 'column'}} onSubmit={(e) => handleSubmit.mutate(e)}>
                 <div className="input" style={{marginLeft : '2%', marginRight : '2%', width : '100%'}}>
-                    <input type="text" name='categories' value={category.name} onChange={handleOnChange} placeholder='Insert Category' style={{width : '96%', height : '40px'}}/>
+                    <input type="text" value={category.name} onChange={handleChange} placeholder='Insert Category' style={{width : '96%', height : '40px'}}/>
                 </div>
 
                 <div className="button" style={{marginTop : '30px', width : "100%", marginLeft : '2%', marginRight : '2%'}}>
@@ -71,4 +86,4 @@ const EditCategory = () => {
   )
 }
 
-export default EditCategory;
+export default UpdateCategory;

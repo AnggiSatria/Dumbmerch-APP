@@ -19,25 +19,14 @@ import { Form } from 'react-bootstrap';
 import "../Assets/style.css"
 import { API } from '../config/api'; 
 import { useMutation } from 'react-query';
+import { useEffect } from 'react';
 
 
-const EditProduct = () => {
+const AddProduct = () => {
 
     const [categories, setCategories] = useState([]); //Store all category data
     const [categoryId, setCategoryId] = useState([]); //Save the selected category id
     const [preview, setPreview] = useState(null); //For image preview
-      
-    const Navigate = useNavigate();
-    const handleNavigate = () => {
-        Navigate("/product")
-    }
-
-    const Input = styled('input')({
-      display: 'none',
-    });
-
-      document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)"
-
     const [product, setProduct] = useState({
         image : "",
         name : "",
@@ -46,7 +35,32 @@ const EditProduct = () => {
         qty : ""
     }) 
 
-    const handleOnChange = (e) => {
+    const getCategories = async () => {
+        try {
+          const response = await API.get('/categories');
+          setCategories(response.data.data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      const handleChangeCategoryId = (e) => {
+        const id = e.target.value;
+        const checked = e.target.checked;
+    
+        if (checked) {
+          // Save category id if checked
+          setCategoryId([...categoryId, parseInt(id)]);
+        } else {
+          // Delete category id from variable if unchecked
+          let newCategoryId = categoryId.filter((categoryIdItem) => {
+            return categoryIdItem != id;
+          });
+          setCategoryId(newCategoryId);
+        }
+      };
+
+      const handleOnChange = (e) => {
         setProduct({
             ...product,
             [e.target.name] : 
@@ -59,7 +73,7 @@ const EditProduct = () => {
         }
     }        
 
-    const handleOnSubmit = useMutation(async(e) => {
+    const handleOnSubmit = useMutation(async (e) => {
         try {
             e.preventDefault()
 
@@ -81,7 +95,7 @@ const EditProduct = () => {
 
             console.log(response);
 
-            // Navigate('/product')
+            Navigate('/product')
 
         } catch (error) {
             console.log(error);
@@ -89,6 +103,17 @@ const EditProduct = () => {
 
     })
 
+    useEffect(() => {
+        getCategories();
+      }, []);
+      
+    const Navigate = useNavigate();
+
+    const Input = styled('input')({
+      display: 'none',
+    });
+
+      document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)"
 
   return (
     <div>
@@ -102,27 +127,28 @@ const EditProduct = () => {
 
         <div className="All" style={{height : '93vh', marginTop : '100px'}}>
             <div className="teks" style={{marginLeft : '30px'}}>
-                <h4 style={{color: 'white'}}>Edit Product</h4>
+                <h4 style={{color: 'white'}}>Add Product</h4>
             </div>
 
             <div className="body" style={{marginTop : '30px'}}>
-            
-            {preview && (
-            <div>
-              <img
-                src={preview}
-                style={{
-                  maxWidth: "150px",
-                  maxHeight: "150px",
-                  objectFit: "cover",
-                  marginBlock: "1rem",
-                }}
-                alt={preview}
-              />
-            </div>
-          )}
 
                 <form action="" onSubmit={(e) => handleOnSubmit.mutate(e)}>
+
+                {preview && (
+                    <div>
+                    <img
+                        src={preview}
+                        style={{
+                        maxWidth: "150px",
+                        maxHeight: "150px",
+                        objectFit: "cover",
+                        marginBlock: "1rem",
+                        }}
+                        alt={preview}
+                    />
+                    </div>
+                )}
+
                     <div className="file" style={{width : '96%', display : "flex", marginLeft : "1%", marginRight : "1%"}}>
                        
                         <input name='image' placeholder='Upload' onChange={handleOnChange} type='file' style={{}} ></input>
@@ -145,14 +171,24 @@ const EditProduct = () => {
                         <input onChange={handleOnChange} name='qty' type="text" style={{width : '96%', height : '40px', marginLeft : '1%', marginRight : '1%', borderRadius : '5px'}} placeholder="stock"/>
                     </div>
                     
-                    <div className="categories" style={{width : '96%', marginTop : '10px', marginLeft : "1%", marginRight : "1%", backgroundColor : "#fff", height : "40px", padding : "5px", display : "flex", flexWrap : "wrap"}}>
-                    {categories.map((value) => {
-                        return <form action="">
-                            <input name='category' type="checkbox" style={{borderRadius : '5px'}}/>
-                            <label htmlFor="" name="category" style={{fontSize : "20px", marginLeft : "10px", marginRight : "10px"}}>{value.name}</label>
-                        </form>
-                    })}   
-                    </div>
+                    <div className="card-form-input mt-4 px-2 py-1 pb-2">
+                <div
+                  className="text-secondary mb-1"
+                  style={{ fontSize: '15px' }}
+                >
+                  Category
+                </div>
+                {categories.map((item, index) => (
+                  <label className="checkbox-inline me-4" key={index}>
+                    <input
+                      type="checkbox"
+                      value={item.id}
+                      onClick={handleChangeCategoryId}
+                    />{' '}
+                    {item.name}
+                  </label>
+                ))}
+              </div>
 
                     <div className="button" style={{marginTop : '30px', width : "100%", marginLeft : '1%', marginRight : '1%'}}>
                         <Button type='submit' variant="contained" color='success' style={{width : '96%'}}>Save</Button>{' '}
@@ -164,4 +200,4 @@ const EditProduct = () => {
   )
 }
 
-export default EditProduct;
+export default AddProduct;

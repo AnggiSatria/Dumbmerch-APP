@@ -13,7 +13,7 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/api/v1/', router)
-app.use('/uploads', express.static('uploads'))
+app.use('/uploads', express.static(__dirname + '/uploads'))
 
 
 app.listen(port, (() => console.log(`Running at port  ${port}`)))

@@ -12,10 +12,17 @@ import DarkMode from '../components/fitur/DarkMode';
 import { Link } from "react-router-dom";
 import Filter from "../components/fitur/filter";
 import { Container, Row, Col } from "react-bootstrap";
+import { API } from "../config/api";
+import { useQuery } from "react-query";
 
 function Homepage(){
 
       document.body.style.backgroundColor="rgba(0, 0, 0, 0.97)"
+
+    // useQuery('productData', async () => {
+    //     const response = await API.get('/products')
+    //     console.log(response);
+    // })
     
     return (
         <div>
